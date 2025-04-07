@@ -1,0 +1,235 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+<div class="order-summary-container">
+    <div class="order-header-section">
+        <div class="my-orders-header">
+           <h1>Đơn hàng của tôi</h1>
+        </div>
+        <div class="order-tab-navigation">
+            <a href="{% url 'my_orders' %}" class="tab-item {% if not current_status %}active{% endif %}">Tất cả</a>
+            <a href="{% url 'my_orders' %}?status=pending" class="tab-item {% if current_status == 'pending' %}active{% endif %}">Đang xử lý</a>
+            <a href="{% url 'my_orders' %}?status=shipped" class="tab-item {% if current_status == 'shipped' %}active{% endif %}">Đang giao</a>
+            <a href="{% url 'my_orders' %}?status=delivered" class="tab-item {% if current_status == 'delivered' %}active{% endif %}">Đã giao</a>
+        </div>
+        <div class="search-bar">
+            <form method="GET" action="{% url 'my_orders' %}">
+                <input type="text" name="search" placeholder="Tìm theo mã đơn hàng" value="{{ search_query }}">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <div class="order-list-container">
+        {% for order in orders %}
+        <div class="order-card">
+            <div class="order-header-info">
+                <div class="order-meta-info">
+                    <div class="order-id">
+                        <span>Đơn hàng #{{ order.order_number }}</span>
+                        <button class="copy-btn" onclick="copyOrderNumber('{{ order.id }}')">
+                            <i class="far fa-copy"></i>
+                        </button>
+                    </div>
+                    <div class="order-date-info">Ngày đặt: {{ order.created_at|date:"d/m/Y" }}</div>
+                </div>
+                <div class="order-status-info">
+                    <i class="fas fa-clock"></i>
+                    <span>{{ order.get_status_display }}</span>
+                </div>
+            </div>
+
+            <div class="order-product-list">
+                {% for item in order.items.all %}
+                <div class="product-card">
+                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                    <div class="product-info">
+                        <h4>{{ item.product.name }}</h4>
+                        <p>{{ item.color.name }}, {{ item.size }}</p>
+                        <div class="product-price-info">
+                            <span class="price">{{ item.price|floatformat:3|intcomma }}đ</span>
+                            <span class="quantity">x{{ item.quantity }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="order-summary-info">
+                <div class="summary-row">
+                    <span>Tạm tính</span>
+                    <span>{{ order.subtotal|floatformat:0|intcomma }}₫</span>
+                </div>
+                <div class="summary-row">
+                    <span>Phí vận chuyển</span>
+                    <span>{{ order.shipping_fee|floatformat:0|intcomma }}₫</span>
+                </div>
+                {% if order.discount > 0 %}
+                <div class="summary-row discount-info">
+                    <span>Giảm giá</span>
+                    <span>-{{ order.discount|floatformat:0|intcomma }}₫</span>
+                </div>
+                {% endif %}
+                <div class="summary-row total-info">
+                    <span>Tổng cộng: </span>
+                    <span class="text-danger"><b>{{ order.calculated_total|floatformat:0|intcomma }}₫</b></span>
+                </div>
+            </div>
+
+            <div class="order-action-buttons">
+                <a href="{% url 'my_order_detail' order.order_number %}" class="detail-btn">Chi tiết</a>
+                {% if order.status == 'pending' or order.status == 'processing' %}
+                <button class="cancel-btn" onclick="cancelOrder('{{ order.order_number }}')">Hủy đơn hàng</button>
+                {% endif %}
+            </div>
+        </div>
+        {% empty %}
+        <div class="no-orders-message">
+            <p>Bạn chưa có đơn hàng nào.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+.order-action-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.detail-btn, .cancel-btn {
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.detail-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+}
+
+.cancel-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.cancel-btn:hover {
+    background-color: #c82333;
+}
+
+.toast-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.toast {
+    background-color: #333;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    display: none;
+}
+</style>
+
+<div class="toast-container">
+    <div id="toast" class="toast"></div>
+</div>
+
+<script>
+function copyOrderNumber(orderNumber) {
+    navigator.clipboard.writeText(orderNumber).then(function() {
+        showToast('Đã sao chép mã đơn hàng!', true);
+    });
+}
+
+// Fetch address details for each order
+async function fetchAddressDetails() {
+    const orders = document.querySelectorAll('[data-province]');
+    
+    for (const order of orders) {
+        try {
+            const provinceCode = order.dataset.province;
+            const districtCode = order.dataset.district;
+            const wardCode = order.dataset.ward;
+            
+            // Fetch province
+            const provinceResponse = await fetch(`https://provinces.open-api.vn/api/p/${provinceCode}`);
+            const provinceData = await provinceResponse.json();
+            
+            // Fetch district
+            const districtResponse = await fetch(`https://provinces.open-api.vn/api/d/${districtCode}`);
+            const districtData = await districtResponse.json();
+            
+            // Fetch ward
+            const wardResponse = await fetch(`https://provinces.open-api.vn/api/w/${wardCode}`);
+            const wardData = await wardResponse.json();
+            
+            // Update address display
+            const addressSpan = order.querySelector('.order-address');
+            if (addressSpan) {
+                addressSpan.textContent = `${wardData.name}, ${districtData.name}, ${provinceData.name}`;
+            }
+        } catch (error) {
+            console.error('Error fetching address details:', error);
+        }
+    }
+}
+
+// Call the function when page loads
+document.addEventListener('DOMContentLoaded', fetchAddressDetails);
+
+function showToast(message, isSuccess = true) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.style.backgroundColor = isSuccess ? '#28a745' : '#dc3545';
+    toast.style.display = 'block';
+    
+    setTimeout(() => {
+        toast.style.display = 'none';
+    }, 3000);
+}
+
+function cancelOrder(orderNumber) {
+    if (confirm('Bạn có chắc chắn muốn hủy đơn hàng này không?')) {
+        fetch(`/my-orders/${orderNumber}/cancel/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showToast('Đơn hàng đã được hủy thành công', true);
+                // Remove the cancelled order from DOM
+                const orderElement = document.querySelector(`[data-order-number="${orderNumber}"]`);
+                if (orderElement) {
+                    orderElement.remove();
+                }
+                // Reload the page after a short delay
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+            } else {
+                showToast(data.message || 'Có lỗi xảy ra khi hủy đơn hàng', false);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showToast('Có lỗi xảy ra khi hủy đơn hàng', false);
+        });
+    }
+}
+</script>
+{% endblock content %}

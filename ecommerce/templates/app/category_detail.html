@@ -1,0 +1,75 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %}{{ category.name }} - VIU Shop{% endblock %}
+
+{% block content %}
+<div class="container category-page mt-4">
+    <nav aria-label="breadcrumb" class="category-breadcrumb-nav">
+        <ol class="breadcrumb category-breadcrumb">
+            <li class="breadcrumb-item category-breadcrumb-item">
+                <a href="{% url 'home' %}" class="category-breadcrumb-link">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active category-breadcrumb-current" aria-current="page">{{ category.name }}</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-4 category-title">{{ category.name }}</h1>
+    
+    {% if category.description %}
+    <div class="category-description mb-4">
+        {{ category.description|safe }}
+    </div>
+    {% endif %}
+
+    {% if products %}
+    <div class="row product-list">
+        {% for product in products %}
+        <div class="col-md-3 col-sm-6 mb-4 product-card-col">
+            <div class="card h-100 product-card">
+                <a href="{% url 'product_detail' product.slug %}" class="product-image-link">
+                    <img src="{{ product.image.url }}" class="card-img-top product-image" alt="{{ product.name }}">
+                </a>
+                <div class="card-body product-card-body">
+                    <h5 class="card-title product-title">
+                        <a href="{% url 'product_detail' product.slug %}" class="text-dark product-title-link" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; white-space: normal;">{{ product.name }}</a>
+                    </h5>
+                    <p class="card-text product-price">
+                        {% if product.sale_price %}
+                        <span class="text-danger font-weight-bold product-price-sale">{{ product.display_price }}</span>
+                        <span class="text-muted text-decoration-line-through product-price-original">{{ product.original_price }}</span>
+                        {% else %}
+                        <span class="font-weight-bold product-price-normal">{{ product.display_price }}</span>
+                        {% endif %}
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center product-actions">
+                        <div class="rating product-rating">
+                            {% for i in "12345"|make_list %}
+                            {% if forloop.counter <= product.rating %}
+                            <i class="fas fa-star text-warning product-star filled"></i>
+                            {% else %}
+                            <i class="far fa-star text-warning product-star empty"></i>
+                            {% endif %}
+                            {% endfor %}
+                            <small class="product-review-count">({{ product.review_count }})</small>
+                        </div>
+                        <a href="{% url 'product_detail' product.slug %}" class="btn btn-sm btn-outline-primary product-detail-btn">Xem chi tiết</a>
+                    </div>
+                </div>
+                {% if product.is_new %}
+                <div class="badge bg-success position-absolute top-0 end-0 m-2 product-badge-new">Mới</div>
+                {% endif %}
+                {% if product.is_sale %}
+                <div class="badge bg-danger position-absolute top-0 start-0 m-2 product-badge-sale">Giảm giá</div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-info category-empty-alert">
+        Không có sản phẩm nào trong danh mục này.
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

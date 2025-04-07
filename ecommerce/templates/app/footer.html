@@ -1,0 +1,543 @@
+{% load static %}
+
+{% block content_footer %}
+
+<footer class="w-full bg-black text-white">
+  <!-- Newsletter Section -->
+  <div class="w-full bg-gray-200 py-4">
+    <div class="container mx-auto px-4">
+      <form id="newsletter-form" class="flex flex-col md:flex-row items-center gap-4">
+        <div class="flex items-center gap-2 text-black">
+          <i class="fas fa-envelope-open-text" style="color: #333; font-size: 3.5em; padding-right: 20px; "></i>
+
+          <div>
+            <h3 class="font-bold text-lg">Đăng ký nhận bản tin</h3>
+            <p class="text-sm">Đừng bỏ lỡ hàng ngàn sản phẩm và các chương trình siêu hấp dẫn</p>
+          </div>
+        </div>
+        <div class="flex flex-1 w-full md:w-auto gap-2">
+          <input
+            type="email"
+            id="newsletter-email"
+            placeholder="Địa chỉ email của bạn"
+            class="flex-1 bg-white text-black px-3 py-2 rounded"
+            required
+          />
+          <div id="newsletter-button-container">
+            <button type="submit" class="bg-black text-white hover:bg-gray-800 px-4 py-2 rounded">
+              ĐĂNG KÝ
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Main Footer Content -->
+  <div class="container mx-auto px-4 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <!-- Company Info -->
+      <div class="space-y-4">
+        <h2 class="text-4xl font-bold hover:scale-105 transition-transform">ACFC</h2>
+        <p class="text-sm text-gray-300">
+          Nhà phân phối chính hãng các thương hiệu thời trang quốc tế hàng đầu Việt Nam.
+          <span class="text-blue-400 ml-1 cursor-pointer hover:text-blue-500">(Xem thêm)</span>
+        </p>
+        <div class="w-16 h-1 bg-white"></div>
+        <div class="space-y-2 text-sm">
+          <div class="flex items-start gap-2 hover:translate-x-1 transition-transform">
+            <i class="fas fa-map-marker-alt text-white text-lg"></i>
+            <p>
+              84 Phan Trọng Tuệ, Hoà Cường Nam, Hải Châu, Đà Nẵng, Việt Nam.
+            </p>
+          </div>
+          <div class="flex items-center gap-2 hover:translate-x-1 transition-transform">
+            <i class="fas fa-fax text-white text-lg"></i>
+            <p>Fax: + 84 (28) 3825 6523</p>
+          </div>
+          <div class="flex items-center gap-2 font-bold hover:translate-x-1 transition-transform">
+           <i class="fas fa-phone text-white text-lg"></i>
+            <p>03676 04684 (9:00-22:00)</p>
+          </div>
+        </div>
+        
+      </div>
+
+      <!-- About ACFC -->
+      
+        <div class="space-y-4">
+            <h3 class="text-xl font-bold border-b border-gray-700 pb-2">Về ACFC</h3>
+            <ul class="space-y-2">
+            {% for item in about_items %}
+                <li class="cursor-pointer hover:translate-x-2 hover:text-blue-400 transition-all"><a href="{{ item.url }}">{{ item.name }}</a></li>
+            {% empty %}
+                <li>Không có dữ liệu để hiển thị.</li>
+            {% endfor %}
+            </ul>
+
+            <h3 class="text-xl font-bold border-b border-gray-700 pb-2 pt-6">Hotline</h3>
+            <div class="bg-gray-800 p-4 rounded-md hover:scale-102 transition-transform class-Hotline">
+                <div class="flex-hotline">
+                    <i class="fas fa-phone text-white text-lg"></i>
+                </div>
+                <div>
+                <p class="text-sm text-gray-300">Giải đáp thắc mắc và khiếu nại</p>
+                <p class="font-bold">03676 04684 (9:00 - 22:00)</p>
+                </div>
+                
+            </div>
+        </div>
+
+      <!-- Customer Support -->
+      <div class="space-y-4">
+        <h3 class="text-xl font-bold border-b border-gray-700 pb-2">Hỗ trợ khách hàng</h3>
+        <ul class="space-y-2">
+            {% for item in support_items %}
+                <li class="cursor-pointer hover:translate-x-2 hover:text-blue-400 transition-all"><a href="{{ item.url }}">{{ item.name }}</a></li>
+            {% endfor %}
+        </ul>
+      </div>
+
+      <!-- Connect with ACFC -->
+      <div class="space-y-6">
+        <div>
+          <h3 class="text-xl font-bold border-b border-gray-700 pb-2">Kết nối với ACFC</h3>
+            <div class="flex gap-4 mt-4">
+                {% for icon in social_icons %}
+                <a href="{{ icon.url }}" target="_blank" class="footer-social-icon bg-blue-600 p-2 rounded-md cursor-pointer">
+                    <i data-lucide="{{ icon.name }}" class="h-6 w-6"></i>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+
+       <div>
+            <h3 style="font-size: 20px; font-weight: bold; border-bottom: 2px solid #4a4a4a; padding-bottom: 8px;"  class="text-xl font-bold border-b border-gray-700 pb-2">
+                Chấp nhận thanh toán.
+            </h3>
+            <div class="grid grid-cols-3 gap-2 mt-4" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 16px;">
+                <img src="{% static 'images/visa.png' %}" alt="Visa" style="width: 50px; height: 50px;">
+                <img src="{% static 'images/mastercard.png' %}" alt="MasterCard" style="width: 50px; height: 50px;">
+                <img src="{% static 'images/jcb.png' %}" alt="JCB" style="width: 50px; height: 50px;">
+                <img src="{% static 'images/cod.png' %}" alt="COD" style="width: 50px; height: 50px;">
+                <img src="{% static 'images/atm.png' %}" alt="ATM" style="width: 50px; height: 50px;">
+                <img src="{% static 'images/momo.png' %}" alt="Momo" style="width: 50px; height: 50px;">
+            </div>
+        </div>
+
+        <div>
+          <h3 class="text-xl font-bold border-b border-gray-700 pb-2">Đối Tác Vận Chuyển</h3>
+          <div class="mt-4">
+            <div class="bg-yellow-500 text-black font-bold p-2 rounded-md inline-block hover:scale-105 transition-transform">
+              NHẤT TIN express
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="text-xl font-bold border-b border-gray-700 pb-2">Tải App RV</h3>
+          <div class="flex gap-4 mt-4">
+            <div class="bg-black border border-white p-2 rounded-md cursor-pointer hover:scale-105 transition-transform">
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-6 bg-white rounded-full"></div>
+                <div>
+                    <a href="https://play.google.com/store" target="_blank" class="block text-center">
+                        <p class="text-xs">GET IT ON</p>
+                        <p class="font-bold">Google Play</p>
+                    </a>
+                </div>
+              </div>
+            </div>
+            <div class="bg-black border border-white p-2 rounded-md cursor-pointer hover:scale-105 transition-transform">
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-6 bg-white rounded-full"></div>
+                <div>
+                  <p class="text-xs">Download on the</p>
+                  <p class="font-bold">App Store</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Copyright -->
+  <div class="border-t border-gray-800 py-6">
+    <div class="container mx-auto px-4 text-center text-sm ">
+      <p>© RV 2025 viu-shop - Công Ty TNHH Thời Trang & Mỹ Phẩm Âu Châu.</p>
+     
+    </div>
+  </div>
+  <!-- Chat Box comment-->
+  <div id="chat-box-comment" class="chatBtn-comment">
+      <img src="{% static 'images/icons/speech-bubble.png' %}" class="h-8 w-8" alt="Chat Icon" />
+      <span class="tooltip">Chat với AI</span>
+  </div>
+  <a href="https://www.facebook.com/messages/new/?initial_e2ee_toggle_position=true&locale=vi_VN" target="_blank">
+    <div id="chat-box" class="chatBtn">
+        <img src="{% static 'images/icons/messenger.png' %}" class="h-8 w-8" alt="Chat Icon" />
+        <span class="tooltip">Messages</span>
+    </div>
+  </a>
+  
+  <!-- ChatGPT Chat Box -->
+  <div id="chatgpt-container" class="chat-container hidden">
+      <div class="chat-card">
+          <div class="chat-header">
+              <div class="h2">Chat với AI Tư vấn thời trang</div>
+              <button class="close-btn-gpt">×</button>
+          </div>
+          <div class="chat-body" id="chatgpt-messages">
+              <div class="message incoming">
+                  <p>Xin chào! Tôi là trợ lý AI tư vấn thời trang. Tôi có thể giúp bạn chọn quần áo, phụ kiện phù hợp, tư vấn về size, màu sắc, và cách phối đồ. Bạn cần tư vấn gì hôm nay?</p>
+              </div>
+          </div>
+          <div class="chat-footer">
+              <input type="text" id="chatgpt-input" placeholder="Nhập tin nhắn..." autocomplete="off">
+              <button id="send-gpt-message">Gửi</button>
+          </div>
+      </div>
+  </div>
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // ChatGPT Chat Functionality
+        const chatgptContainer = document.getElementById('chatgpt-container');
+        const chatgptButton = document.getElementById('chat-box-comment');
+        const closeGptBtn = document.querySelector('.close-btn-gpt');
+        const chatgptInput = document.getElementById('chatgpt-input');
+        const sendGptButton = document.getElementById('send-gpt-message');
+        const chatgptMessages = document.getElementById('chatgpt-messages');
+
+        if (chatgptButton) {
+            chatgptButton.addEventListener('click', function() {
+                if (chatgptContainer) {
+                    chatgptContainer.classList.remove('hidden');
+                }
+            });
+        }
+
+        if (closeGptBtn) {
+            closeGptBtn.addEventListener('click', function() {
+                if (chatgptContainer) {
+                    chatgptContainer.classList.add('hidden');
+                }
+            });
+        }
+
+        // Send message to ChatGPT
+        function sendGptMessage() {
+            const message = chatgptInput.value.trim();
+            if (!message) return;
+
+            // Add user message
+            addGptMessage(message, false);
+            chatgptInput.value = '';
+
+            // Show typing indicator
+            const typingIndicator = document.createElement('div');
+            typingIndicator.className = 'message incoming typing-indicator';
+            typingIndicator.innerHTML = '<p>AI đang trả lời...</p>';
+            chatgptMessages.appendChild(typingIndicator);
+            chatgptMessages.scrollTop = chatgptMessages.scrollHeight;
+
+            // Send to server
+            fetch('/chatgpt-message/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: JSON.stringify({ message: message })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Remove typing indicator
+                chatgptMessages.removeChild(typingIndicator);
+
+                if (data.success) {
+                    // Add bot response
+                    addGptMessage(data.message, true);
+
+                    // Add product cards if available
+                    if (data.products && data.products.length > 0) {
+                        const productsContainer = document.createElement('div');
+                        productsContainer.className = 'products-grid';
+
+                        data.products.forEach(product => {
+                            productsContainer.appendChild(createProductCard(product));
+                        });
+
+                        chatgptMessages.appendChild(productsContainer);
+                        chatgptMessages.scrollTop = chatgptMessages.scrollHeight;
+                    }
+                } else {
+                    // Display detailed error message from server
+                    addGptMessage(data.message || 'Có lỗi xảy ra. Vui lòng thử lại sau.', true);
+                }
+            })
+            .catch(error => {
+                // Remove typing indicator
+                if (typingIndicator.parentNode === chatgptMessages) {
+                    chatgptMessages.removeChild(typingIndicator);
+                }
+
+                console.error('Network error:', error);
+                addGptMessage('Lỗi kết nối mạng. Vui lòng kiểm tra kết nối và thử lại.', true);
+            });
+        }
+
+        // Add message to ChatGPT chat
+        function addGptMessage(message, isBot) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isBot ? 'incoming' : 'outgoing'}`;
+            messageDiv.innerHTML = `<p>${message}</p>`;
+            chatgptMessages.appendChild(messageDiv);
+            chatgptMessages.scrollTop = chatgptMessages.scrollHeight;
+        }
+
+        // Event listeners for ChatGPT chat
+        if (sendGptButton) {
+            sendGptButton.addEventListener('click', sendGptMessage);
+        }
+
+        if (chatgptInput) {
+            chatgptInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendGptMessage();
+                }
+            });
+        }
+
+        // Get CSRF token
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    });
+</script>
+
+  <style>
+    .products-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding: 10px;
+        margin: 10px 0;
+    }
+
+    .product-card {
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .product-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .product-image-container {
+        position: relative;
+        padding-top: 100%;
+    }
+
+    .product-image-container img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .badge {
+        position: absolute;
+        top: 10px;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    .badge.new {
+        right: 10px;
+        background: #4CAF50;
+        color: white;
+    }
+
+    .badge.sale {
+        left: 10px;
+        background: #f44336;
+        color: white;
+    }
+
+    .product-info {
+        padding: 12px;
+    }
+
+    .product-info h3 {
+        margin: 0 0 8px 0;
+        font-size: 14px;
+        font-weight: 600;
+        color: #333;
+        line-height: 1.3;
+    }
+
+    .rating {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-bottom: 8px;
+    }
+
+    .stars {
+        color: #ffc107;
+        font-size: 14px;
+    }
+
+    .rating-value {
+        font-weight: bold;
+        color: #333;
+    }
+
+    .review-count {
+        color: #666;
+        font-size: 12px;
+    }
+
+    .price {
+        margin-bottom: 8px;
+    }
+
+    .current-price {
+        font-weight: bold;
+        color: #e53935;
+        font-size: 16px;
+    }
+
+    .original-price {
+        text-decoration: line-through;
+        color: #999;
+        font-size: 14px;
+        margin-left: 5px;
+    }
+
+    .view-detail {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        background: #4169E1;
+        color: white;
+        padding: 8px 12px;
+        border-radius: 4px;
+        text-decoration: none;
+        font-size: 13px;
+        transition: background 0.3s ease;
+    }
+
+    .view-detail:hover {
+        background: #3151b5;
+    }
+  </style>
+  <style>
+  #chat-box {
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: none;
+    background-color: #0084ff; /* Màu xanh đặc trưng của Messenger */
+    background-image: linear-gradient(147deg, #0084ff, #0055b7, #0084ff); /* Gradient từ xanh sáng đến xanh đậm */
+    cursor: pointer;
+    padding-top: 3px;
+    box-shadow: 0 0 15px 5px rgba(0, 132, 255, 0.8); /* Tạo hiệu ứng phát sáng ban đầu */
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    background-size: 300%;
+    background-position: left;
+    transition-duration: 1s;
+    animation: shake 1s ease-in-out infinite, glow 1.5s ease-in-out infinite; /* Thêm hiệu ứng lắc và phát sáng */
+    z-index: 50;
+  }
+
+  /* Keyframes cho hiệu ứng lắc */
+  @keyframes shake {
+    0% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(-5px); /* Lắc nhẹ sang trái */
+    }
+    50% {
+      transform: translateX(5px); /* Lắc nhẹ sang phải */
+    }
+    75% {
+      transform: translateX(-5px); /* Lắc nhẹ lại sang trái */
+    }
+    100% {
+      transform: translateX(0); /* Quay lại vị trí ban đầu */
+    }
+  }
+
+  /* Keyframes cho hiệu ứng phát sáng */
+  @keyframes glow {
+    0% {
+      box-shadow: 0 0 15px 5px rgba(0, 132, 255, 0.8); /* Phát sáng ban đầu */
+    }
+    50% {
+      box-shadow: 0 0 25px 10px rgba(0, 132, 255, 1); /* Phát sáng mạnh hơn giữa chu kỳ */
+    }
+    100% {
+      box-shadow: 0 0 15px 5px rgba(0, 132, 255, 0.8); /* Quay lại phát sáng ban đầu */
+    }
+  }
+
+  #chat-box .tooltip {
+    position: absolute;
+    top: -40px;
+    opacity: 0;
+    background-color: #00aaff; /* Màu sáng hơn để tooltip nổi bật */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition-duration: .5s;
+    pointer-events: none;
+    letter-spacing: 0.5px;
+  }
+
+  #chat-box:hover .tooltip {
+    opacity: 1;
+    transition-duration: .5s;
+  }
+
+  #chat-box img {
+    height: 32px;
+    width: 32px;
+    object-fit: contain;
+  }
+</style>
+</footer>
+
+{% endblock content_footer %}
+

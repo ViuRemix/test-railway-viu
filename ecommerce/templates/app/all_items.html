@@ -1,0 +1,579 @@
+{% extends "app/base.html" %}
+{% load static %}
+
+{% block content %}
+<!-- Add CSRF Token -->
+{% csrf_token %}
+
+<div class="min-h-screen">
+    <!-- Page Header -->
+    <div class=" py-8">
+        <div class="container mx-auto px-4 mt-2">
+            <div class="flex flex-col items-center text-center">
+                <h1 class="text-3xl md:text-4xl font-bold mb-2">Tất Cả Sản Phẩm</h1>
+                <div class="flex items-center text-sm text-gray-600">
+                    <a href="{% url 'home' %}" class="hover:text-primary transition-colors">Trang chủ</a>
+                    <i class="fas fa-chevron-right mx-2"></i>
+                    <span>Tất cả sản phẩm</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-8">
+        <div class="flex gap-8">
+            <!-- Filter Sidebar -->
+            <aside class="filter-sidebar position-sticky" style="width: 250px; position: sticky; top: 80px; align-self: flex-start;">
+                <div class="filter-header flex justify-between items-center mb-4">
+                    <h2 class="filter-title text-lg font-bold">Bộ lọc</h2>
+                    <a href="{% url 'all_items' %}" class="clear-all text-sm text-blue-500 hover:underline">Xóa tất cả</a>
+                </div>
+                <!-- Categories -->
+                <div class="filter-section mb-6">
+                    <h3 class="filter-section-title text-md font-semibold mb-2">Danh mục</h3>
+                    <div class="category-list">
+                        {% for category in categories %}
+                        <div class="category-item flex items-center mb-2">
+                            <input type="checkbox" id="category-{{ category.id }}" name="category" value="{{ category.id }}"
+                                   class="category-checkbox mr-2"
+                                   {% if category.id|stringformat:"s" in selected_categories %}checked{% endif %} style="cursor: pointer;margin-left: 10px;">
+                            <label for="category-{{ category.id }}" class="category-label text-sm">
+                                {{ category.name }}
+                            </label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Price Range -->
+                <div class="filter-section mb-6">
+                    <h3 class="filter-section-title text-md font-semibold mb-2">Khoảng giá</h3>
+                    <div class="price-range-slider">
+                        <input type="range" class="form-range w-full" id="priceRange" 
+                               min="0" max="3000000" step="100000" 
+                               value="{{ min_price|default:'1500000' }}">
+                        <div class="price-display flex justify-between text-sm text-gray-600 mt-2">
+                            <span>0 ₫</span>
+                            <span>3.000.000 ₫</span>
+                        </div>
+                        <div class="current-price-display text-sm text-gray-600 mt-2">
+                            <span id="currentPrice">{{ min_price|default:'1.500.000' }} ₫</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Colors -->
+                <div class="filter-section">
+                    <h3 class="filter-section-title text-md font-semibold mb-2">Màu sắc</h3>
+                    <div class="color-list flex flex-wrap gap-2">
+                        {% for color in colors %}
+                        <button class="color-button w-6 h-6 rounded-full border {% if color.name in selected_colors %}border-2 border-blue-500{% endif %}"
+                                style="background-color: {{ color.code }};"
+                                data-color="{{ color.name|lower }}"
+                                title="{{ color.name }}"></button>
+                        {% endfor %}
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Products Section -->
+            <div class="flex-1">
+                <!-- Toolbar -->
+                <div class="products-header flex justify-between items-center mb-4 ">
+                    <div class="products-count text-sm">
+                        Hiển thị <span class="font-medium">{{ products|length }}</span> sản phẩm
+                    </div>
+                    <div class="view-options flex items-center gap-4" style="padding: 0 20px;">
+                        <!-- Sort -->
+                        <select id="sort-select" name="sort" class="sort-select border rounded px-2 py-1 text-sm">
+                            <option value="newest" {% if sort_by == 'newest' %}selected{% endif %}>Mới nhất</option>
+                            <option value="price-asc" {% if sort_by == 'price-asc' %}selected{% endif %}>Giá: Thấp đến cao</option>
+                            <option value="price-desc" {% if sort_by == 'price-desc' %}selected{% endif %}>Giá: Cao đến thấp</option>
+                            <option value="rating" {% if sort_by == 'rating' %}selected{% endif %}>Đánh giá cao nhất</option>
+                        </select>
+
+                        <!-- View Mode -->
+                        <div class="view-mode flex gap-2">
+                            <button class="view-button p-2 border rounded {% if view_mode == 'grid' %}bg-gray-200{% endif %}" data-view="grid">
+                                <i class="fas fa-th"></i>
+                            </button>
+                            <button class="view-button p-2 border rounded {% if view_mode == 'list' %}bg-gray-200{% endif %}" data-view="list">
+                                <i class="fas fa-list"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Selected Filters Display -->
+                {% if filter_tags %}
+                <div class="selected-filters mb-4">
+                    <div class="flex flex-wrap gap-2">
+                        {% for tag in filter_tags %}
+                        <div class="filter-tag flex items-center bg-gray-100 rounded-full px-3 py-1">
+                            <span class="text-sm">{{ tag.display }}</span>
+                            <a href="#" class="remove-filter ml-2" 
+                               data-type="{{ tag.type }}" 
+                               data-value="{{ tag.value }}">
+                                <i class="fas fa-times text-xs"></i>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Products Display Section -->
+                {% if view_mode == 'grid' %}
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                {% else %}
+                <div class="flex flex-col space-y-4">
+                {% endif %}
+                    {% for product in products %}
+                    {% if view_mode == 'grid' %}
+                    <!-- Grid View -->
+                    <div class="group transition-all duration-300 hover:-translate-y-1">
+                        <div class="relative overflow-hidden rounded-lg mb-3">
+                            <div class="aspect-[3/4] relative">
+                                <a href="{% url 'product_detail' product.slug %}">
+                                    <img src="{% get_media_prefix %}{{ product.image }}" alt="{{ product.name }}"
+                                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                                </a>
+                            </div>
+                            <!-- Product badges -->
+                            <div class="absolute top-2 left-2 flex flex-col gap-2">
+                                {% if product.is_new %}
+                                    <span class="bg-blue-500 text-white text-xs px-2 py-1 rounded">Mới</span>
+                                {% endif %}
+                                {% if product.is_sale %}
+                                    <span class="bg-red-500 text-white text-xs px-2 py-1 rounded">-{{ product.discount_percent }}%</span>
+                                {% endif %}
+                            </div>
+                            <!-- Quick actions -->
+                            <div class="absolute bottom-0 left-0 right-0 flex justify-center gap-2 translate-y-full group-hover:translate-y-0 transition-transform duration-300 p-3 bg-white bg-opacity-90">
+                                <button class="rounded-full w-10 h-10 p-0 flex items-center justify-center border border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition add-to-favorites" data-product-slug="{{ product.slug }}">
+                                    <i class="fas fa-heart h-4 w-4"></i>
+                                </button>
+                                <button class="flex-1 bg-blue-500 text-white py-2 rounded-md text-sm hover:bg-blue-600 add-to-cart" data-product-slug="{{ product.slug }}">
+                                    Thêm vào giỏ
+                                </button>
+                            </div>
+                        </div>
+                        <a href="{% url 'product_detail' product.slug %}" class="block">
+                            <h3 class="font-medium mb-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">
+                                {{ product.name }}
+                            </h3>
+                            <!-- Rating Display -->
+                            <div class="flex items-center gap-1 mb-1">
+                                <div class="flex">
+                                    {% for i in "12345"|make_list %}
+                                        {% if forloop.counter <= product.rating %}
+                                            <i class="fas fa-star text-warning"></i>
+                                        {% else %}
+                                            <i class="far fa-star text-muted"></i>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <span class="text-sm text-gray-600">({{ product.review_count }})</span>
+                            </div>
+                            <div class="flex gap-2">
+                                {% if product.sale_price %}
+                                    <span class="text-red-500 font-medium">{{ product.display_price }}</span>
+                                    <span class="text-gray-400 line-through">{{ product.original_price }}</span>
+                                {% else %}
+                                    <span class="font-medium">{{ product.display_price }}</span>
+                                {% endif %}
+                            </div>
+                        </a>
+                    </div>
+                    {% else %}
+                    <!-- List View -->
+                    <div class="flex gap-6 p-4 border rounded-lg hover:shadow-lg transition-shadow duration-300">
+                        <!-- Product Image -->
+                        <div class="w-48 h-48 flex-shrink-0">
+                            <a href="{% url 'product_detail' product.slug %}" class="block w-full h-full">
+                                <img src="{% get_media_prefix %}{{ product.image }}" alt="{{ product.name }}"
+                                     class="w-full h-full object-cover rounded-lg">
+                            </a>
+                        </div>
+                        <!-- Product Info -->
+                        <div class="flex-grow">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="text-lg font-medium mb-2">
+                                        <a href="{% url 'product_detail' product.slug %}" class="hover:text-blue-500">
+                                            {{ product.name }}
+                                        </a>
+                                    </h3>
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <div class="flex">
+                                            {% for i in "12345"|make_list %}
+                                                {% if forloop.counter <= product.rating %}
+                                                    <i class="fas fa-star text-warning"></i>
+                                                {% else %}
+                                                    <i class="far fa-star text-muted"></i>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                        <span class="text-sm text-gray-600">({{ product.review_count }})</span>
+                                    </div>
+                                    <p class="text-gray-600 mb-4 line-clamp-2">{{ product.description }}</p>
+                                </div>
+                                <div class="text-right">
+                                    {% if product.sale_price %}
+                                        <div class="text-xl font-medium text-red-500">{{ product.display_price }}</div>
+                                        <div class="text-sm text-gray-400 line-through">{{ product.original_price }}</div>
+                                    {% else %}
+                                        <div class="text-xl font-medium">{{ product.display_price }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <!-- Action Buttons -->
+                            <div class="flex gap-3 mt-4">
+                                <button class="flex-1 bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition add-to-cart" data-product-slug="{{ product.slug }}">
+                                    <i class="fas fa-shopping-cart mr-2"></i>Thêm vào giỏ
+                                </button>
+                                <button class="w-12 h-10 flex items-center justify-center border border-red-500 text-red-500 rounded-md hover:bg-red-500 hover:text-white transition add-to-favorites" data-product-slug="{{ product.slug }}">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+
+                <!-- Pagination -->
+                    {% if products.has_other_pages %}
+                    <nav aria-label="Page navigation ">
+                        <ul class="pagination justify-content-center mt-6 mb-5">
+                        {% if products.has_previous %}
+                            <li class="page-item">
+                            <a href="?page={{ products.previous_page_number }}" class="page-link" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                            </li>
+                        {% endif %}
+
+                        {% for num in products.paginator.page_range %}
+                            {% if products.number == num %}
+                            <li class="page-item active" aria-current="page">
+                                <span class="page-link">{{ num }}</span>
+                            </li>
+                            {% else %}
+                            <li class="page-item">
+                                <a href="?page={{ num }}" class="page-link">{{ num }}</a>
+                            </li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if products.has_next %}
+                            <li class="page-item">
+                            <a href="?page={{ products.next_page_number }}" class="page-link" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                            </li>
+                        {% endif %}
+                        </ul>
+                    </nav>
+                    {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Toast Message Container -->
+<div id="toast" class="toast-message hidden"></div>
+
+<!-- Toast Message Styles -->
+<style>
+.toast-message {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+}
+
+.toast-message.success {
+    background-color: #10B981;
+    color: white;
+}
+
+.toast-message.error {
+    background-color: #EF4444;
+    color: white;
+}
+
+.toast-message.hidden {
+    opacity: 0;
+    transform: translateY(100%);
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle filter changes
+    const filterForm = document.createElement('form');
+    filterForm.method = 'GET';
+    filterForm.action = window.location.pathname;
+
+    // Add existing query parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    for (const [key, value] of urlParams.entries()) {
+        if (key !== 'page') {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = key;
+            input.value = value;
+            filterForm.appendChild(input);
+        }
+    }
+
+    // Handle remove filter clicks
+    document.querySelectorAll('.remove-filter').forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            const type = button.dataset.type;
+            const value = button.dataset.value;
+            
+            // Create new URLSearchParams from current URL
+            const searchParams = new URLSearchParams(window.location.search);
+            
+            // Remove the specific filter
+            if (type === 'category') {
+                const categories = searchParams.getAll('category');
+                searchParams.delete('category');
+                categories.forEach(cat => {
+                    if (cat !== value) {
+                        searchParams.append('category', cat);
+                    }
+                });
+            } else if (type === 'color') {
+                const colors = searchParams.getAll('color');
+                searchParams.delete('color');
+                colors.forEach(color => {
+                    if (color !== value) {
+                        searchParams.append('color', color);
+                    }
+                });
+            } else if (type === 'size') {
+                const sizes = searchParams.getAll('size');
+                searchParams.delete('size');
+                sizes.forEach(size => {
+                    if (size !== value) {
+                        searchParams.append('size', size);
+                    }
+                });
+            } else if (type === 'price') {
+                // Reset price range to default
+                searchParams.delete('min_price');
+                searchParams.delete('max_price');
+                document.getElementById('priceRange').value = 1500000;
+                document.getElementById('currentPrice').textContent = '1.500.000 ₫';
+            }
+            
+            // Redirect to new URL
+            window.location.search = searchParams.toString();
+        });
+    });
+
+    // Handle category checkboxes
+    document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+        checkbox.addEventListener('change', () => {
+            const categories = Array.from(document.querySelectorAll('input[name="category"]:checked'))
+                                  .map(cb => cb.value);
+            
+            // Remove existing category parameters
+            filterForm.querySelectorAll('input[name="category"]').forEach(input => input.remove());
+            
+            // Add new category parameters
+            categories.forEach(category => {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'category';
+                input.value = category;
+                filterForm.appendChild(input);
+            });
+            
+            filterForm.submit();
+        });
+    });
+
+    // Price range slider
+    const priceRange = document.getElementById('priceRange');
+    const currentPrice = document.getElementById('currentPrice');
+    let priceTimeout;
+
+    priceRange.addEventListener('input', function() {
+        // Format price with thousand separator
+        const formattedValue = new Intl.NumberFormat('vi-VN').format(this.value);
+        currentPrice.textContent = formattedValue + ' ₫';
+
+        // Update filter with debounce
+        clearTimeout(priceTimeout);
+        priceTimeout = setTimeout(() => {
+            // Create new URLSearchParams from current URL
+            const searchParams = new URLSearchParams(window.location.search);
+            
+            // Update min_price parameter
+            searchParams.set('min_price', this.value);
+            
+            // Keep max_price if it exists, otherwise use default
+            if (!searchParams.has('max_price')) {
+                searchParams.set('max_price', '3000000');
+            }
+            
+            // Redirect to new URL
+            window.location.search = searchParams.toString();
+        }, 500);
+    });
+
+    // Handle color buttons
+    document.querySelectorAll('.color-button').forEach(button => {
+        button.addEventListener('click', () => {
+            const color = button.dataset.color;
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'color';
+            input.value = color;
+            filterForm.appendChild(input);
+            filterForm.submit();
+        });
+    });
+
+    // Handle sort select
+    document.getElementById('sort-select').addEventListener('change', (e) => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'sort';
+        input.value = e.target.value;
+        filterForm.appendChild(input);
+        filterForm.submit();
+    });
+
+    // Handle view mode
+    document.querySelectorAll('.view-button').forEach(button => {
+        button.addEventListener('click', () => {
+            const view = button.dataset.view;
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'view';
+            input.value = view;
+            filterForm.appendChild(input);
+            filterForm.submit();
+        });
+    });
+
+    // Add form to body
+    document.body.appendChild(filterForm);
+
+    // Handle add to cart
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const productSlug = this.dataset.productSlug;
+            
+            fetch(`/cart/add/${productSlug}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                },
+                body: JSON.stringify({
+                    quantity: 1,
+                    size: 'M'
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    if (response.status === 403) {
+                        window.location.href = '{% url "login" %}?next=' + window.location.pathname;
+                        return;
+                    }
+                    return response.json().then(data => {
+                        throw new Error(data.message || 'Có lỗi xảy ra khi thêm vào giỏ hàng');
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    // Update cart count
+                    const cartCountElement = document.querySelector('.cart-count');
+                    if (cartCountElement && data.cart_count) {
+                        cartCountElement.textContent = data.cart_count;
+                    }
+                    showToast('Sản phẩm đã được thêm vào giỏ hàng!', 'success');
+                } else {
+                    showToast(data.message || 'Có lỗi xảy ra khi thêm vào giỏ hàng', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showToast(error.message || 'Có lỗi xảy ra khi thêm vào giỏ hàng', 'error');
+            });
+        });
+    });
+
+    // Handle add to favorites
+    document.querySelectorAll('.add-to-favorites').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const productSlug = this.dataset.productSlug;
+            
+            fetch(`/add-to-favorites/${productSlug}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                },
+            })
+            .then(response => {
+                if (!response.ok) {
+                    if (response.status === 403) {
+                        window.location.href = '{% url "login" %}?next=' + window.location.pathname;
+                        return;
+                    }
+                    throw new Error('Có lỗi xảy ra khi thêm vào yêu thích');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    // Change icon from outline to filled
+                    const icon = this.querySelector('i');
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                    showToast('Đã thêm vào danh sách yêu thích!', 'success');
+                } else {
+                    showToast(data.message || 'Có lỗi xảy ra khi thêm vào yêu thích', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showToast(error.message || 'Có lỗi xảy ra khi thêm vào yêu thích', 'error');
+            });
+        });
+    });
+
+    // Toast notification function
+    function showToast(message, type = 'success') {
+        const toast = document.getElementById('toast');
+        if (toast) {
+            toast.textContent = message;
+            toast.className = `toast-message ${type}`;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+                toast.className = 'toast-message hidden';
+            }, 3000);
+        }
+    }
+});
+</script>
+{% endblock content %}

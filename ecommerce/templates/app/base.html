@@ -1,0 +1,166 @@
+{% load static %}   
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <title>SHOP RV VIU</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/product_detail.css' %}">
+    <link rel="stylesheet" href="{% static 'css/stylde_addcart.css' %}">
+    <link rel="stylesheet" href="{% static 'css/csscheckout.css' %}">
+    <link rel="stylesheet" href="{% static 'css/css_profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/cssfavorites.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer_view.css' %}">
+    <link rel="stylesheet" href="{% static 'css/css_home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/css_all_items.css' %}">
+    <link rel="stylesheet" href="{% static 'css/order_success_form.css' %}">
+    <link rel="stylesheet" href="{% static 'css/my_orders.css' %}">
+    <link rel="stylesheet" href="{% static 'css/order_detail.css' %}">
+    <link rel="stylesheet" href="{% static 'css/category_detail.CSS' %}">
+    <!-- cho output.css -->  
+    <link href="{% static 'src/output.css' %}" rel="stylesheet">
+
+    <!-- cho sliber -->  
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+    <!-- Tailwind CSS -->  
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="{% static 'css/main.css' %}" rel="stylesheet">
+    <!-- Thêm link CSS của Tailwind -->
+
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.5/dist/tailwind.min.css" rel="stylesheet">
+    <!-- trang footer --> 
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Thêm link CSS của Flowbite -->
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@1.6.3/dist/flowbite.min.css" rel="stylesheet">
+
+    <script src="{% static 'js/main.js' %}" defer></script>
+</head>
+<body data-user-authenticated="{{ user.is_authenticated|yesno:'true,false' }}" 
+      data-login-url="{% url 'login' %}">
+    <!-- Add hidden form with csrf token -->
+    <form id="csrf-form" style="display: none;">
+        {% csrf_token %}
+    </form>
+    <nav class="navbar sticky-top">
+        <div class="navbar-left">
+            <div class="logo">
+                <a href="{% url 'home' %}">
+                    <img src="{% static 'images/logo_viu.png' %}" alt="logo" width="60" height="60">
+                </a>
+            </div>            
+            <button class="menu-toggle">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="{% url 'home' %}">HOME</a></li>
+            <li><a href="{% url 'san_pham' %}">SẢN PHẨM</a></li>
+            <li><a href="{% url 'giay_dep' %}">GIÀY DÉP</a></li>
+            <li><a href="{% url 'tui_vi' %}">TÚI VÍ</a></li>
+            <li><a href="{% url 'phu_kien' %}">PHỤ KIỆN</a></li>
+            <li><a href="{% url 'giam_gia' %}" class="sale">GIẢM GIÁ</a></li>
+            <li><a href="{% url 'about' %}">ABOUT</a></li>
+        </ul>
+        
+        <div class="nav-icons">
+            <a href="#" class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></a>
+            <!-- giỏ hàng -->
+            <a href="{% url 'view_cart' %}" class="desktop-only">
+                <i class="fas fa-shopping-cart"></i>
+            </a>
+            <a href="{% url 'favorites' %}" class="desktop-only"><i class="fas fa-heart"></i></a>
+            <!-- Kiểm tra nếu người dùng đã đăng nhập -->
+            {% if user.is_authenticated %}
+            <!-- Khi đã đăng nhập, hiển thị trang profile -->
+            <a href="{% url 'profile' %}">
+                <div class="user-profile">
+                    <div class="profile-picture">
+                        {% if user.profile.image %}
+                            <img src="{{ user.profile.image.url }}" alt="{{ user.first_name }} {{ user.last_name }}" style="width: 100%; height: 100%; object-fit: cover;">
+                        {% else %}
+                            <span class="profile-initials" style="font-size: 36px; font-weight: bold; color: white; background: #007bff; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; border-radius: 50%;">
+                                {{ first_name|slice:":1" }}{{ last_name|slice:":1" }}
+                            </span>
+                        {% endif %}
+                    </div>
+                    {% comment %} <span class="user-name">{{ user.first_name }} {{ user.last_name }}</span> {% endcomment %}
+                </div>
+            </a>
+            {% else %}
+                <!-- Khi chưa đăng nhập, hiển thị link đăng nhập -->
+                <a href="{% url 'login' %}"><i class="fas fa-user"></i></a>
+            {% endif %}
+            
+            <!-- giỏ hàng trên điện thoại-->
+            <a href="{% url 'view_cart' %}" class="mobile-only">
+            
+                <i class="fas fa-shopping-cart"></i>
+                {% if cart_items_count > 0 %}
+                    <span class="cart-count">{{ cart_items_count }}</span>
+                {% endif %}
+            </a> 
+        </div>
+       <!-- Thanh tìm kiếm -->
+        <div class="search-container">
+            <form action="{% url 'search_products' %}" method="GET">
+                <div class="search-wrapper">
+                    <input type="text" name="q" class="search-input" placeholder="Tìm kiếm sản phẩm..." required>
+                    {% comment %} <button type="submit" class="search-button"><i class="fas fa-search"></i></button> {% endcomment %}
+                    <button type="button" class="search-close"><i class="fas fa-times"></i></button>
+                </div>
+            </form>
+        </div>
+
+    </nav>
+    {% comment %} nội dụng  {% endcomment %}
+    {% block content %}
+
+    {% endblock content %}
+    {% comment %} footer {% endcomment %}
+    {% include 'app/footer.html' with about_items=about_items %}
+
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <script src="{% static 'js/script_base.js' %}" defer></script>
+    <script src="{% static 'js/script_profile.js' %}" defer></script>
+    <script src="{% static 'js/script_productDetail.js' %}" defer></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}" defer></script>
+    <script src="{% static 'js/script_footer.js' %}"></script>
+    <script src="{% static 'js/alpine.js' %}" defer></script>
+    <script src="{% static 'js/script_home.js' %}" defer></script>
+    <script src="{% static 'js/script_product_detail.js' %}" defer></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Load Alpine.js core -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <!-- Load Intersect plugin -->
+    <script src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js" defer></script>
+
+     <!-- Thêm script JS của Flowbite -->
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@1.6.3/dist/flowbite.min.js"></script>
+
+    <script>
+        lucide.createIcons();
+    </script>
+
+</body>
+</html>

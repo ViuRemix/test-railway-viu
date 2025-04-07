@@ -1,0 +1,158 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+<div class="order-success-wrapper">
+    <!-- Loading Animation -->
+    <div id="loading-animation" class="loading-section">
+        <div class="spinner-border text-success" role="status">
+            <span class="visually-hidden">Đang xử lý...</span>
+        </div>
+        <p class="loading-text">Đang xử lý đơn hàng của bạn...</p>
+    </div>
+
+    <!-- Success Message -->
+    <div id="order-success-message" class="success-message" style="display: none;">
+        <div class="success-icon-wrapper_check">
+            <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <h1>Đặt hàng thành công!</h1>
+        <p class="thank-you-note">Cảm ơn bạn đã mua sắm tại cửa hàng của chúng tôi</p>
+        
+        <div class="divider"></div>
+        
+        <div class="order-details">
+            <h2>Thông tin đơn hàng</h2>
+            <p class="order-id"><strong>Mã đơn hàng:</strong> {{ order.order_number }}</p>
+            
+            <div class="order-items-wrapper">
+                <h3>Chi tiết đơn hàng</h3>
+                <div class="order-item-list-wrapper">
+                    <div class="order-item-header">
+                        <div class="product-column">Sản phẩm</div>
+                        <div class="price-column">Đơn giá</div>
+                        <div class="quantity-column">Số lượng</div>
+                        <div class="total-column">Thành tiền</div>
+                    </div>
+                    <ul class="order-items-list">
+                        {% for item in order.items.all %}
+                        <li class="order-item">
+                            <div class="product-info-wrapper">
+                               <div class="item-image">
+                                    <img src="{{ item.product.image.url|default:'/static/images/No_images.png' }}" 
+                                        alt="{{ item.product.name }}"
+                                        onerror="this.src='/static/images/No_images.png'"
+                                        style="width: 150px !important; height: 150px !important; object-fit: cover !important;">
+                                </div>
+
+                                <div class="item-details" style="text-align: left; padding-left: 10px;">
+                                    <span class="item-name">{{ item.product.name }}</span>
+                                    <span class="item-variant">{{ item.color.name }}, size {{ item.size }}</span>
+                                </div>
+                            </div>
+                            <div class="item-price text-danger"><b>{{ item.price|floatformat:0|intcomma }}.000₫</b></div>
+                            <div class="item-quantity">x{{ item.quantity }}</div>
+                            <div class="item-total"><b>{{ item.get_total|floatformat:0|intcomma }}.000₫</b></div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                
+                <div class="order-date-wrapper">
+                    <p><strong>Ngày đặt hàng:</strong> {{ order.created_at|date:"j \t\h\á\n\g n, Y" }}</p>
+                </div>
+            </div>
+            
+            <div class="shipping-info-wrapper">
+                <h3>Thông tin giao hàng</h3>
+                    <p><strong>Địa chỉ:</strong> {{ order.address }}, {{ ward_name }}, {{ district_name }}, {{ province_name }}</p>
+                    {% if order.payment_method == 'bank' %}
+                    <p><strong>Ngân hàng:</strong> {{ order.bank_name }}</p>
+                    {% endif %}
+                <p class="expected-delivery-date"><strong>Dự kiến giao hàng:</strong> {{ order.created_at|date:"j \t\h\á\n\g n, Y" }}</p>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="order-summary-wrapper">
+            <div class="order-summary-row">
+                <span>Tạm tính</span>
+                <span>{{ order.subtotal|floatformat:0|intcomma }}₫</span>
+            </div>
+            <div class="order-summary-row">
+                <span>Phí vận chuyển</span>
+                <span>{{ order.shipping_fee|floatformat:0|intcomma }}₫</span>
+            </div>
+            {% if order.discount > 0 %}
+            <div class="order-summary-row discount-row">
+                <span>Giảm giá</span>
+                <span>-{{ order.discount|floatformat:0|intcomma }}₫</span>
+            </div>
+            {% endif %}
+            <div class="order-summary-row total-row">
+                <span>Tổng cộng</span>
+                <span class="text-danger"><b>{{ order.calculated_total|floatformat:0|intcomma }}₫</b></span>
+            </div>
+        </div>
+        
+        <div class="order-status-wrapper">
+            <h2>Trạng thái đơn hàng</h2>
+            <div class="status-timeline">
+                <div class="status-step {% if order.status != 'cancelled' %}completed{% endif %}">
+                    <div class="status-circle"></div>
+                    <div class="status-description">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <p class="status-title">Đã xác nhận</p>
+                        <p class="status-date">{{ order.created_at|date:"j \t\h\á\n\g n, Y" }}</p>
+                    </div>
+                </div>
+                <div class="status-step {% if order.status == 'processing' or order.status == 'shipped' or order.status == 'delivered' %}completed{% endif %}">
+                    <div class="status-circle"></div>
+                    <div class="status-description">
+                        <i class="fa-solid fa-box"></i>
+                        <p class="status-title">Đang chuẩn bị hàng</p>
+                        <p class="status-description-text">Đơn hàng của bạn đang được chuẩn bị</p>
+                    </div>
+                </div>
+                <div class="status-step {% if order.status == 'shipped' or order.status == 'delivered' %}completed{% endif %}">
+                    <div class="status-circle"></div>
+                    <div class="status-description">
+                        <i class="fa-solid fa-truck"></i>
+                        <p class="status-title">Đang giao hàng</p>
+                        <p class="status-description-text">Dự kiến: {{ order.created_at|date:"j \t\h\á\n\g n, Y" }}</p>
+                    </div>
+                </div>
+                <div class="status-step {% if order.status == 'delivered' %}completed{% endif %}">
+                    <div class="status-circle"></div>
+                    <div class="status-description">
+                        <i class="fa-solid fa-home"></i>
+                        <p class="status-title">Đã giao hàng</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="order-actions">
+            <a href="{% url 'home' %}" class="action-btn continue-shopping">Tiếp tục mua sắm</a>
+            <a href="{% url 'my_orders' %}" class="action-btn view-orders">
+            Xem đơn hàng của tôi
+            <span class="arrow-icon">→</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Show loading animation for 2 seconds
+    setTimeout(function() {
+        document.getElementById('loading-animation').style.display = 'none';
+        document.getElementById('order-success-message').style.display = 'block';
+    }, 2000);
+});
+</script>
+
+
+{% endblock content %}

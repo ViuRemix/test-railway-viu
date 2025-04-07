@@ -1,0 +1,254 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+<div class="order-detail-container mt-4 mb-5">
+    <div class="order-header-section">
+    <div class="my-orders-header-h1">
+        <h1>Chi tiết đơn hàng</h1>
+    </div>
+        <div class="order-meta-info">
+            <div class="order-number-info">
+                <span>Đơn hàng #{{ order.order_number }}</span>
+                <button class="copy-button" onclick="copyOrderNumber('{{ order.order_number }}')">
+                    <i class="far fa-copy"></i>
+                </button>
+            </div>
+            <div class="order-date-info"><b>Ngày đặt:</b> {{ order.created_at|date:"d/m/Y" }}</div>
+        </div>
+    </div>
+
+    <div class="order-detail-content">
+        <div class="order-status-section">
+            <h3>Trạng thái đơn hàng</h3>
+            <div class="status-timeline">
+                <div class="status-item {% if order.status != 'cancelled' %}active-status{% endif %}">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Đã xác nhận</span>
+                    <small>{{ order.created_at|date:"d/m/Y H:i" }}</small>
+                </div>
+                <div class="status-item {% if order.status == 'processing' or order.status == 'shipped' or order.status == 'delivered' %}active-status{% endif %}">
+                    <i class="fas fa-box"></i>
+                    <span>Đang chuẩn bị hàng</span>
+                </div>
+                <div class="status-item {% if order.status == 'shipped' or order.status == 'delivered' %}active-status{% endif %}">
+                    <i class="fas fa-shipping-fast"></i>
+                    <span>Đang giao hàng</span>
+                </div>
+                <div class="status-item {% if order.status == 'delivered' %}active-status{% endif %}">
+                    <i class="fas fa-home"></i>
+                    <span>Đã giao hàng</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="order-info-section">
+            <div class="shipping-info-section">
+                <h3>Thông tin giao hàng</h3>
+                <p><strong>Người nhận:</strong> {{ order.full_name }}</p>
+                <p><strong>Số điện thoại:</strong> {{ order.phone }}</p>
+                <p><strong>Email:</strong> {{ order.email }}</p>
+                <p><strong>Địa chỉ:</strong> {{ full_address }}</p>
+            </div>
+
+            <div class="payment-info-section">
+                <h3>Thông tin thanh toán</h3>
+                <p><strong>Phương thức:</strong> {{ order.get_payment_method_display }}</p>
+                {% if order.payment_method == 'bank' %}
+                <p><strong>Ngân hàng:</strong> {{ order.bank_name }}</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="order-products-section">
+            <h3>Sản phẩm</h3>
+            {% for item in order.items.all %}
+            <div class="product-item-info">
+                <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                <div class="product-details-info">
+                    <h4>{{ item.product.name }}</h4>
+                    <p>{{ item.color.name }}, size: {{ item.size }}</p>
+                    <div class="product-price-info">
+                       <span class="price-info text-danger">{{ item.price|floatformat:0|intcomma }}.000₫</span>
+                        <strong style="font-size: 14px; margin-right: 80%;"><span class="quantity-info" >x{{ item.quantity }}</span></strong>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="order-summary-section">
+            <div class="summary-row-info">
+                <span>Tạm tính</span>
+                <span>{{ order.subtotal|floatformat:0|intcomma }}₫</span>
+            </div>
+            <div class="summary-row-info">
+                <span>Phí vận chuyển</span>
+                <span>{{ order.shipping_fee|floatformat:0|intcomma }}₫</span>
+            </div>
+            {% if order.discount > 0 %}
+            <div class="summary-row-info discount-info">
+                <span>Giảm giá</span>
+                <span>-{{ order.discount|floatformat:0|intcomma }}₫</span>
+            </div>
+            {% endif %}
+            <div class="summary-row-info total-info">
+                <span>Tổng cộng</span>
+                <span class="text-danger">{{ total|floatformat:0|intcomma }}₫</span>
+            </div>
+        </div>
+
+        <div class="order-action-buttons">
+            <a href="{% url 'my_orders' %}" class="btn-back-action">Quay lại danh sách đơn hàng</a>
+        </div>
+    </div>
+</div>
+
+<style>
+.btn-update-status {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.btn-update-status:hover {
+    background-color: #218838;
+}
+
+.status-timeline {
+    position: relative;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.status-item {
+    position: relative;
+    padding: 15px 0;
+    padding-left: 50px;
+    border-left: 2px solid #e9ecef;
+}
+
+.status-item:last-child {
+    border-left: none;
+}
+
+.status-item i {
+    position: absolute;
+    left: -15px;
+    background: white;
+    padding: 10px;
+    border-radius: 50%;
+    color: #6c757d;
+    border: 2px solid #e9ecef;
+}
+
+.status-item.active-status i {
+    color: white;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.status-item span {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.status-item small {
+    color: #6c757d;
+}
+
+.status-item.active-status {
+    color: #28a745;
+}
+
+.status-item.active-status span {
+    color: #28a745;
+}
+</style>
+
+<script>
+function copyOrderNumber(orderNumber) {
+    navigator.clipboard.writeText(orderNumber).then(function() {
+        alert('Đã sao chép mã đơn hàng!');
+    });
+}
+
+// Fetch address details
+async function fetchAddressDetails() {
+    try {
+        // Fetch province
+        const provinceResponse = await fetch(`https://provinces.open-api.vn/api/p/${order.province}`);
+        const provinceData = await provinceResponse.json();
+        
+        // Fetch district
+        const districtResponse = await fetch(`https://provinces.open-api.vn/api/d/${order.district}`);
+        const districtData = await districtResponse.json();
+        
+        // Fetch ward
+        const wardResponse = await fetch(`https://provinces.open-api.vn/api/w/${order.ward}`);
+        const wardData = await wardResponse.json();
+        
+        // Update address display
+        const fullAddressSpan = document.getElementById('fullAddress');
+        fullAddressSpan.textContent = `${order.address}, ${wardData.name}, ${districtData.name}, ${provinceData.name}`;
+    } catch (error) {
+        console.error('Error fetching address details:', error);
+    }
+}
+
+// Call the function when page loads
+document.addEventListener('DOMContentLoaded', fetchAddressDetails);
+
+function updateOrderStatus(orderNumber, newStatus) {
+    if (!confirm('Bạn có chắc chắn muốn cập nhật trạng thái đơn hàng?')) {
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('status', newStatus);
+
+    fetch(`/my-orders/${orderNumber}/update-status/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}',
+        },
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showToast(data.message, true);
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
+        } else {
+            showToast(data.message, false);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showToast('Có lỗi xảy ra khi cập nhật trạng thái', false);
+    });
+}
+
+function showToast(message, isSuccess = true) {
+    const toast = document.getElementById('toast');
+    if (!toast) return;
+    
+    toast.textContent = message;
+    toast.style.backgroundColor = isSuccess ? '#28a745' : '#dc3545';
+    toast.style.display = 'block';
+    
+    setTimeout(() => {
+        toast.style.display = 'none';
+    }, 3000);
+}
+</script>
+{% endblock content %}

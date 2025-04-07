@@ -1,0 +1,252 @@
+{% load widget_tweaks %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập - SHOP RV VIU</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style_login.css' %}">
+    <style>
+        .firebase-error {
+            background-color: #ffebee;
+            color: #c62828;
+            padding: 10px 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+            display: none;
+        }
+        .loading-spinner {
+            display: none;
+            margin-right: 8px;
+        }
+        .btn-disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-container">
+            <div class="login-header">
+                <h2>Chào mừng trở lại!</h2>
+                <p>Vui lòng đăng nhập để tiếp tục</p>
+            </div>
+            <div id="firebase-error" class="firebase-error"></div>
+            <form method="post" novalidate class="login-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-icon"><i class="fas fa-user"></i></span>
+                        {{ form.username|add_class:"form-control"|attr:"placeholder:Nhập tên đăng nhập" }}
+                    </div>
+                    {% if form.username.errors %}
+                        <div class="error-message">
+                            {% for error in form.username.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-icon"><i class="fas fa-lock"></i></span>
+                        {{ form.password|add_class:"form-control"|attr:"placeholder:Nhập mật khẩu" }}
+                    </div>
+                    {% if form.password.errors %}
+                        <div class="error-message">
+                            {% for error in form.password.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                {% if form.non_field_errors %}
+                    <div class="error-message">
+                        {% for error in form.non_field_errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <button type="submit" class="btn-primary">
+                    <span>Đăng nhập</span><i class="fas fa-arrow-right"></i>
+                </button>
+                <div class="divider"><span>hoặc</span></div>
+                <div class="social-login">
+                    <button type="button" class="social-btn google" id="google-login-btn">
+                        <span class="loading-spinner"><i class="fas fa-spinner fa-spin"></i></span>
+                        <i class="fab fa-google"></i><span>Đăng nhập với Google</span>
+                    </button>
+                    <button type="button" class="social-btn facebook" id="facebook-login-btn">
+                        <span class="loading-spinner"><i class="fas fa-spinner fa-spin"></i></span>
+                        <i class="fab fa-facebook-f"></i><span>Đăng nhập với Facebook</span>
+                    </button>
+                </div>
+                <div class="links">
+                    <a href="{% url 'register' %}" class="register-link">
+                        <i class="fas fa-user-plus"></i><span>Chưa có tài khoản? Đăng ký</span>
+                    </a>
+                    <a href="{% url 'home' %}" class="home-link">
+                        <i class="fas fa-home"></i><span>Về trang chủ</span>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, GoogleAuthProvider, FacebookAuthProvider, signInWithRedirect, getRedirectResult } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB8Jgj3Runcd4g8x-aNg2IsZGSK6wj9NoE",
+            authDomain: "viu-shop-e-commerce.firebaseapp.com",
+            projectId: "viu-shop-e-commerce",
+            storageBucket: "viu-shop-e-commerce.appspot.com",
+            messagingSenderId: "194860739362",
+            appId: "1:194860739362:web:ea9a1270c8ecc7d415537b",
+            measurementId: "G-EECQLYVZC6"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const googleProvider = new GoogleAuthProvider();
+        const facebookProvider = new FacebookAuthProvider();
+
+        googleProvider.addScope('profile');
+        googleProvider.addScope('email');
+        facebookProvider.addScope('email');
+
+        googleProvider.setCustomParameters({
+            prompt: 'select_account'
+        });
+
+        window.firebase = { auth, googleProvider, facebookProvider, signInWithRedirect, getRedirectResult };
+    </script>
+
+    <script>
+        function showFirebaseError(message) {
+            const errorDiv = document.getElementById('firebase-error');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        function setButtonLoading(buttonId, isLoading) {
+            const button = document.getElementById(buttonId);
+            const spinner = button.querySelector('.loading-spinner');
+            const icon = button.querySelector('.fab');
+            const text = button.querySelector('span:not(.loading-spinner)');
+
+            if (isLoading) {
+                button.classList.add('btn-disabled');
+                button.disabled = true;
+                spinner.style.display = 'inline-block';
+                icon.style.display = 'none';
+                text.textContent = 'Đang xử lý...';
+            } else {
+                button.classList.remove('btn-disabled');
+                button.disabled = false;
+                spinner.style.display = 'none';
+                icon.style.display = 'inline-block';
+                text.textContent = buttonId === 'google-login-btn' ? 'Đăng nhập với Google' : 'Đăng nhập với Facebook';
+            }
+        }
+
+        async function sendUserDataToBackend(user) {
+            const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+            try {
+                const response = await fetch('/social-login/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken
+                    },
+                    body: JSON.stringify({
+                        uid: user.uid,
+                        email: user.email,
+                        displayName: user.displayName,
+                        photoURL: user.photoURL
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+                if (data.success) {
+                    window.location.href = window.homeUrl;
+                } else {
+                    showFirebaseError(data.message || "Đăng nhập thất bại");
+                }
+            } catch (error) {
+                console.error("Error sending data to backend:", error);
+                showFirebaseError("Lỗi kết nối với server. Vui lòng thử lại sau.");
+            }
+        }
+
+        async function handleSocialLogin(provider, buttonId) {
+            setButtonLoading(buttonId, true);
+
+            try {
+                await window.firebase.signInWithRedirect(window.firebase.auth, provider); // Sử dụng đúng namespace
+
+                const result = await window.firebase.getRedirectResult(window.firebase.auth);
+                console.log("Redirect result:", result); // Debug
+                if (result) {
+                    const user = result.user;
+                    console.log("User data:", user); // Debug
+                    await sendUserDataToBackend(user);
+                } else {
+                    throw new Error("No redirect result received");
+                }
+
+            } catch (error) {
+                console.error("Login error:", error);
+                let errorMessage = "Đã xảy ra lỗi. Vui lòng thử lại.";
+
+                if (error.code === 'auth/popup-closed-by-user' || error.code === 'auth/cancelled-popup-request') {
+                    errorMessage = "Quá trình đăng nhập bị gián đoạn. Vui lòng đảm bảo cho phép redirect trong trình duyệt (Cài đặt > Quyền riêng tư và bảo mật > Cài đặt trang web > Popup và chuyển hướng), và thử lại.";
+                } else if (error.code === 'auth/popup-blocked') {
+                    errorMessage = "Trình duyệt đã chặn redirect. Vui lòng vào Cài đặt > Quyền riêng tư và bảo mật > Cài đặt trang web > Popup và cửa sổ bật lên để cho phép, sau đó thử lại.";
+                } else if (error.code === 'auth/account-exists-with-different-credential') {
+                    errorMessage = "Email này đã được sử dụng với phương thức đăng nhập khác.";
+                } else if (error.message === "No redirect result received") {
+                    errorMessage = "Không nhận được kết quả xác thực. Vui lòng thử lại hoặc kiểm tra kết nối mạng.";
+                }
+
+                showFirebaseError(errorMessage);
+            } finally {
+                setButtonLoading(buttonId, false);
+            }
+        }
+
+        document.getElementById('google-login-btn').addEventListener('click', () => {
+            handleSocialLogin(window.firebase.googleProvider, 'google-login-btn');
+        });
+
+        document.getElementById('facebook-login-btn').addEventListener('click', () => {
+            handleSocialLogin(window.firebase.facebookProvider, 'facebook-login-btn');
+        });
+
+        document.querySelectorAll('.form-control').forEach(input => {
+            input.addEventListener('input', function() {
+                const errorMessage = this.closest('.form-group').querySelector('.error-message');
+                if (errorMessage) {
+                    errorMessage.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+    <script>
+        window.homeUrl = "{% url 'home' %}";
+    </script>
+</body>
+</html>

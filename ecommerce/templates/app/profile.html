@@ -1,0 +1,934 @@
+{% extends "app/base.html" %}
+{% load humanize %}
+
+{% block content %}
+<div class="account-container">
+    <div class="account-sidebar">
+        <div class="profile-picture" style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #ddd; margin: 10px auto;">
+            {% if user.profile.image %}
+                <img src="{{ user.profile.image.url }}" alt="{{ user.first_name }} {{ user.last_name }}" style="width: 100%; height: 100%; object-fit: cover;">
+            {% else %}
+                <span class="profile-initials" style="font-size: 36px; font-weight: bold; color: white; background: #007bff; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; border-radius: 50%;">
+                    {{ user.first_name|slice:":1" }}{{ user.last_name|slice:":1" }}
+                </span>
+            {% endif %}
+        </div>
+
+        <h2 class="account-name">{{ user.last_name }} {{ user.first_name }} </h2>
+        
+        <nav class="account-nav">
+            <ul>
+                <li><a href="#" data-target="account-info" class="active">Thông tin tài khoản</a></li>
+                <li><a href="#" data-target="order-history">Lịch sử đơn hàng</a></li>
+                <li><a href="#" data-target="my-order">Đơn hàng của tôi</a></li>
+                <li><a href="#" data-target="vouchers">Mã ưu đãi</a></li>
+                <li><a href="#" data-target="address-book">Sổ địa chỉ</a></li>
+                <li><a href="#" data-target="membership-card">Thẻ thành viên</a></li>
+                <li><a href="{% url 'favorites' %}" data-target="favorites">Sản phẩm yêu thích</a></li>
+                <li><a href="#" data-target="recently-viewed">Sản phẩm đã xem gần đây</a></li>
+            </ul>
+        </nav>
+        <!-- Form đăng xuất -->
+        <form action="{% url 'logout' %}" method="post" style="margin-top: 20px;">
+            {% csrf_token %}
+            <button type="submit" class="btn-logout">Đăng xuất</button>
+        </form>
+    </div>
+
+    <div class="account-content">
+        <!-- Phần nội dung tương ứng -->
+        <div id="account-info" class="content-section active">
+            <h2>Thông tin tài khoản</h2>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ profile_form.as_p }}
+                <button type="submit" class="update-btn">Cập Nhật Thông Tin</button>
+            </form>
+            <!-- Display form errors -->
+            {% if profile_form.errors %}
+                <div class="form-errors">
+                    {{ profile_form.errors }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div id="order-history" class="content-section">
+            <h2>Lịch sử đơn hàng</h2>
+            {% if orders %}
+            <div class="orders-container">
+                {% for order in orders %}
+                {% if order.status == 'delivered' %}
+                <div class="order-card">
+                    <div class="order-header">
+                        <div class="order-meta">
+                            <h3>Đơn hàng #{{ order.order_number }}</h3>
+                            <span class="order-date">{{ order.created_at|date:"d/m/Y" }}</span>
+                        </div>
+                        <div class="order-status status-success">
+                            Đã giao hàng
+                        </div>
+                    </div>
+                    <div class="order-items">
+                        {% for item in order.items.all|slice:":3" %}
+                        <div class="order-item">
+                            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="item-image">
+                            <div class="item-details">
+                                <span class="item-name">{{ item.product.name }}</span>
+                                <span class="item-variant">{{ item.color.name }}, Size {{ item.size }}</span>
+                                <span class="item-quantity">x{{ item.quantity }}</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% if order.items.count > 3 %}
+                        <div class="more-items">
+                            +{{ order.items.count|add:"-3" }} sản phẩm khác
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="order-footer">
+                        <div class="order-total">
+                            <span>Tổng tiền:</span>
+                            <span class="total-amount">{{ order.calculated_total|floatformat:0|intcomma }}₫</span>
+                        </div>
+                        <div class="order-actions">
+                            <a href="{% url 'my_order_detail' order.order_number %}" class="btn-view-order">Xem chi tiết</a>
+                            {% if order.status == 'delivered' %}
+                            <div class="post-delivery-actions">
+                                <button class="btn-review" onclick="openReviewModal('{{ order.order_number }}')">
+                                    <i class="fas fa-star"></i> Đánh giá
+                                </button>
+                                <button class="btn-rebuy" onclick="rebuyOrder('{{ order.order_number }}')">
+                                    <i class="fas fa-shopping-cart"></i> Mua lại
+                                </button>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="empty-orders">
+                <i class="fas fa-shopping-bag"></i>
+                <p>Chưa có đơn hàng nào đã giao</p>
+                <a href="{% url 'san_pham' %}" class="btn-shop-now">Mua sắm ngay</a>
+            </div>
+            {% endif %}
+        </div>
+        <div id="my-order" class="content-section">
+            <h2>Đơn hàng của tôi</h2>
+            {% if orders %}
+            <div class="orders-container">
+                {% for order in orders %}
+                {% if order.status != 'delivered' and order.status != 'cancelled' %}
+                <div class="order-card">
+                    <div class="order-header">
+                        <div class="order-meta">
+                            <h3>Đơn hàng #{{ order.order_number }}</h3>
+                            <span class="order-date">{{ order.created_at|date:"d/m/Y" }}</span>
+                        </div>
+                        <div class="order-status {% if order.status == 'shipped' %}status-shipped{% else %}status-pending{% endif %}">
+                            {% if order.status == 'pending' %}
+                                Chờ xác nhận
+                            {% elif order.status == 'processing' %}
+                                Đang xử lý
+                            {% elif order.status == 'shipped' %}
+                                Đang giao hàng
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="order-items">
+                        {% for item in order.items.all|slice:":3" %}
+                        <div class="order-item">
+                            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="item-image">
+                            <div class="item-details">
+                                <span class="item-name">{{ item.product.name }}</span>
+                                <span class="item-variant">{{ item.color.name }}, Size {{ item.size }}</span>
+                                <span class="item-quantity">x{{ item.quantity }}</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% if order.items.count > 3 %}
+                        <div class="more-items">
+                            +{{ order.items.count|add:"-3" }} sản phẩm khác
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="order-footer">
+                        <div class="order-total">
+                            <span>Tổng tiền:</span>
+                            <span class="total-amount">{{ order.calculated_total|floatformat:0|intcomma }}₫</span>
+                        </div>
+                        <div class="order-actions">
+                            <a href="{% url 'my_order_detail' order.order_number %}" class="btn-view-order">Xem chi tiết</a>
+                            {% if order.status == 'pending' or order.status == 'processing' %}
+                            <button class="btn-cancel-order" onclick="cancelOrder('{{ order.order_number }}')">
+                                <i class="fas fa-times"></i> Hủy đơn hàng
+                            </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="empty-orders">
+                <i class="fas fa-shopping-bag"></i>
+                <p>Bạn chưa có đơn hàng nào đang xử lý</p>
+                <a href="{% url 'san_pham' %}" class="btn-shop-now">Mua sắm ngay</a>
+            </div>
+            {% endif %}
+        </div>
+
+        <div id="vouchers" class="content-section">
+            <h2>Mã ưu đãi</h2>
+            <p>Danh sách mã ưu đãi của bạn.</p>
+            <!-- Thêm nội dung mã ưu đãi ở đây -->
+        </div>
+         <!-- Địa chỉ -->
+        <div id="address-book" class="content-section">
+            <h2>Sổ địa chỉ</h2>
+            <p>Quản lý địa chỉ của bạn.</p>
+            <div id="address-list">
+                {% for address in addresses %}
+                <div class="address-item">
+                    <p>{{ address.full_name }}</p>
+                    <p>{{ address.street_address }}</p>
+                    <p>{{ address.city }}, {{ address.state }} {{ address.zip_code }}</p>
+                    <p>{{ address.country }}</p>
+                    <button class="edit-address-btn" data-id="{{ address.id }}">Sửa</button>
+                    <form method="post" action="{% url 'delete_address' address.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="delete-address-btn">Xóa</button>
+                    </form>
+                </div>
+                {% endfor %}
+            </div>
+            <button id="add-address-btn">Thêm địa chỉ mới</button>
+            <form id="add-address-form" method="post" action="{% url 'add_address' %}" style="display: none;">
+                {% csrf_token %}
+                {{ address_form.as_p }}
+                <button type="submit">Lưu địa chỉ</button>
+            </form>
+            <form id="edit-address-form" method="post" action="" style="display: none;">
+                {% csrf_token %}
+                {{ address_form.as_p }}
+                <button type="submit">Cập nhật địa chỉ</button>
+            </form>
+        </div>
+
+        <div id="membership-card" class="content-section">
+            <h2>Thẻ thành viên</h2>
+            <p>Thông tin thẻ thành viên của bạn.</p>
+            <!-- Thêm nội dung thẻ thành viên ở đây -->
+        </div>
+
+        <div id="favorites" class="content-section">
+            <h2>Sản phẩm yêu thích</h2>
+            <p>Danh sách sản phẩm bạn yêu thích.</p>
+            <div class="favorites-container">
+                {% if favorites %}
+                <div class="favorites-list">
+                    {% for favorite in favorites %}
+                    <div class="favorite-item" id="favorite-{{ favorite.product.id }}">
+                        <button class="delete-favorite" onclick="removeFavorite('{{ favorite.product.slug }}', {{ favorite.product.id }})">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <a href="{% url 'product_detail' favorite.product.slug %}">
+                            <img src="{{ favorite.product.image.url }}" alt="{{ favorite.product.name }}">
+                        </a>
+                        <h3>{{ favorite.product.name }}</h3>
+                        <div class="price">
+                            {% if favorite.product.sale_price %}
+                                <span>{{ favorite.product.display_price }}</span>
+                                <span class="original-price">{{ favorite.product.original_price }}</span>
+                            {% else %}
+                                <span>{{ favorite.product.display_price }}</span>
+                            {% endif %}
+                        </div>
+                        <a href="{% url 'product_detail' favorite.product.slug %}" class="view-product">
+                            Xem chi tiết
+                        </a>
+                        
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="empty-favorites">
+                    <i class="far fa-heart"></i>
+                    <h2>Chưa có sản phẩm yêu thích</h2>
+                    <p>Hãy thêm sản phẩm vào danh sách yêu thích của bạn</p>
+                    <a href="{% url 'all_items' %}" class="view-product mt-4">
+                        Xem sản phẩm
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        
+        </div>
+        <div id="recently-viewed" class="content-section">
+            <h2 class="fw-bold">Sản phẩm đã xem gần đây</h2>
+            <div class="recently-viewed-grid">
+                {% for item in recently_viewed %}
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="{{ item.product.image.url|default:'/static/images/No_images.png' }}" 
+                             alt="{{ item.product.name }}"
+                             onerror="this.src='/static/images/No_images.png'">
+                        {% if item.product.is_new %}
+                        <span class="badge-new">New</span>
+                        {% endif %}
+                        {% if item.product.is_sale %}
+                        <span class="badge-sale">Sale</span>
+                        {% endif %}
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">{{ item.product.name }}</h3>
+                        <div class="product-price">
+                            {% if item.product.sale_price %}
+                            <span class="current-price">{{ item.product.sale_price|floatformat:0|intcomma }}₫</span>
+                            <span class="original-price">{{ item.product.price|floatformat:0|intcomma }}₫</span>
+                            {% else %}
+                            <span class="current-price">{{ item.product.price|floatformat:0|intcomma }}₫</span>
+                            {% endif %}
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                {% for i in "12345"|make_list %}
+                                <i class="fas fa-star {% if forloop.counter <= item.product.rating %}filled{% endif %}"></i>
+                                {% endfor %}
+                            </div>
+                            <span class="rating-count">({{ item.product.review_count }})</span>
+                        </div>
+                        
+                        <a href="{% url 'product_detail' item.product.slug %}" class="btn-view-product">
+                            Xem chi tiết
+                        </a>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="empty-recently-viewed">
+                    <i class="far fa-clock"></i>
+                    <p>Chưa có sản phẩm nào được xem gần đây</p>
+                    <a href="{% url 'san_pham' %}" class="btn-shop-now">Khám phá sản phẩm</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal đánh giá -->
+<div id="reviewModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Đánh giá đơn hàng</h2>
+        <form id="reviewForm">
+            <input type="hidden" id="orderNumber" name="orderNumber">
+            <div class="rating">
+                <input type="radio" id="star5" name="rating" value="5">
+                <label for="star5">★</label>
+                <input type="radio" id="star4" name="rating" value="4">
+                <label for="star4">★</label>
+                <input type="radio" id="star3" name="rating" value="3">
+                <label for="star3">★</label>
+                <input type="radio" id="star2" name="rating" value="2">
+                <label for="star2">★</label>
+                <input type="radio" id="star1" name="rating" value="1">
+                <label for="star1">★</label>
+            </div>
+            <textarea id="reviewComment" name="comment" placeholder="Nhập đánh giá của bạn"></textarea>
+            <button type="submit" class="btn-submit-review">Gửi đánh giá</button>
+        </form>
+    </div>
+</div>
+
+<style>
+/* Order styles */
+.orders-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.order-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 20px;
+    transition: transform 0.2s;
+}
+
+.order-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.order-meta h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.order-date {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.order-status {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.status-success {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.status-pending {
+    background-color: #fff3e0;
+    color: #ef6c00;
+}
+
+.status-cancelled {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+.order-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.order-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.item-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.item-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.item-name {
+    font-weight: 500;
+    color: #333;
+}
+
+.item-variant {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.item-quantity {
+    font-size: 0.9rem;
+    color: #888;
+}
+
+.more-items {
+    text-align: center;
+    padding: 8px;
+    background: #f1f3f5;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.order-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.order-total {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.total-amount {
+    font-weight: 600;
+    color: #dc3545;
+    font-size: 1.1rem;
+}
+
+.btn-view-order {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.btn-view-order:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+.empty-orders {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.empty-orders i {
+    font-size: 3rem;
+    color: #ccc;
+    margin-bottom: 15px;
+}
+
+.empty-orders p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.btn-shop-now {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.btn-shop-now:hover {
+    background-color: #218838;
+    color: white;
+}
+
+.post-delivery-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btn-review, .btn-rebuy {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.2s;
+}
+
+.btn-review {
+    background-color: #ffd700;
+    color: #333;
+}
+
+.btn-review:hover {
+    background-color: #ffc800;
+}
+
+.btn-rebuy {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-rebuy:hover {
+    background-color: #218838;
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 500px;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.rating input {
+    display: none;
+}
+
+.rating label {
+    font-size: 30px;
+    color: #ddd;
+    cursor: pointer;
+}
+
+.rating input:checked ~ label {
+    color: #ffd700;
+}
+
+.rating label:hover,
+.rating label:hover ~ label {
+    color: #ffc800;
+}
+
+#reviewComment {
+    width: 100%;
+    height: 100px;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+.btn-submit-review {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-submit-review:hover {
+    background-color: #0056b3;
+}
+
+.recently-viewed-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.product-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.2s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-image {
+    position: relative;
+    padding-top: 100%;
+}
+
+.product-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.badge-new, .badge-sale {
+    position: absolute;
+    top: 10px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.badge-new {
+    left: 10px;
+    background-color: #28a745;
+    color: white;
+}
+
+.badge-sale {
+    right: 10px;
+    background-color: #dc3545;
+    color: white;
+}
+
+.product-info {
+    padding: 15px;
+}
+
+.product-name {
+    font-size: 1rem;
+    margin: 0 0 10px;
+    color: #333;
+    height: 40px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.product-price {
+    margin-bottom: 10px;
+}
+
+.current-price {
+    font-weight: 600;
+    color: #dc3545;
+    font-size: 1.1rem;
+}
+
+.original-price {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 0.9rem;
+    margin-left: 5px;
+}
+
+.product-rating {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.stars {
+    color: #ffd700;
+}
+
+.stars .fa-star.filled {
+    color: #ffd700;
+}
+
+.stars .fa-star:not(.filled) {
+    color: #ddd;
+}
+
+.rating-count {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.btn-view-product {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.btn-view-product:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+.empty-recently-viewed {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.empty-recently-viewed i {
+    font-size: 3rem;
+    color: #ccc;
+    margin-bottom: 15px;
+}
+
+.empty-recently-viewed p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.btn-cancel-order {
+    padding: 8px 16px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.2s;
+}
+
+.btn-cancel-order:hover {
+    background-color: #c82333;
+}
+</style>
+
+<script>
+// Mở modal đánh giá
+function openReviewModal(orderNumber) {
+    document.getElementById('orderNumber').value = orderNumber;
+    document.getElementById('reviewModal').style.display = 'block';
+}
+
+// Đóng modal
+document.querySelector('.close').onclick = function() {
+    document.getElementById('reviewModal').style.display = 'none';
+}
+
+// Đóng modal khi click bên ngoài
+window.onclick = function(event) {
+    if (event.target == document.getElementById('reviewModal')) {
+        document.getElementById('reviewModal').style.display = 'none';
+    }
+}
+
+// Xử lý gửi đánh giá
+document.getElementById('reviewForm').onsubmit = function(e) {
+    e.preventDefault();
+    const orderNumber = document.getElementById('orderNumber').value;
+    const rating = document.querySelector('input[name="rating"]:checked')?.value;
+    const comment = document.getElementById('reviewComment').value;
+
+    if (!rating) {
+        alert('Vui lòng chọn số sao đánh giá!');
+        return;
+    }
+
+    // Gửi đánh giá đến server
+    fetch(`/review-order/${orderNumber}/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify({
+            rating: rating,
+            comment: comment
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Cảm ơn bạn đã đánh giá!');
+            document.getElementById('reviewModal').style.display = 'none';
+        } else {
+            alert(data.message || 'Có lỗi xảy ra, vui lòng thử lại!');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Có lỗi xảy ra, vui lòng thử lại!');
+    });
+}
+
+// Xử lý mua lại
+function rebuyOrder(orderNumber) {
+    fetch(`/rebuy-order/${orderNumber}/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            window.location.href = '/view-cart/';
+        } else {
+            alert(data.message || 'Có lỗi xảy ra, vui lòng thử lại!');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Có lỗi xảy ra, vui lòng thử lại!');
+    });
+}
+
+// Helper function to get CSRF token
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+function cancelOrder(orderNumber) {
+    if (!confirm('Bạn có chắc chắn muốn hủy đơn hàng này?')) {
+        return;
+    }
+
+    fetch(`/my-orders/${orderNumber}/cancel/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert(data.message);
+            window.location.reload();
+        } else {
+            alert(data.message || 'Có lỗi xảy ra khi hủy đơn hàng');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Có lỗi xảy ra khi hủy đơn hàng');
+    });
+}
+</script>
+{% endblock %}

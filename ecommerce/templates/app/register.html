@@ -1,0 +1,139 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký - SHOP RV VIU</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style_register.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="register-container">
+            <div class="register-header">
+                <h2>Tạo tài khoản mới</h2>
+                <p>Đăng ký để trải nghiệm mua sắm tốt hơn</p>
+            </div>
+            
+            <form method="post" novalidate class="register-form">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-icon">
+                            <i class="fas fa-user"></i>
+                        </span>
+                        {{ form.username }}
+                    </div>
+                    {% if form.username.errors %}
+                        <div class="error-message">
+                            {% for error in form.username.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-icon">
+                            <i class="fas fa-envelope"></i>
+                        </span>
+                        {{ form.email }}
+                    </div>
+                    {% if form.email.errors %}
+                        <div class="error-message">
+                            {% for error in form.email.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-icon">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                        {{ form.password1 }}
+                    </div>
+                    {% if form.password1.errors %}
+                        <div class="error-message">
+                            {% for error in form.password1.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <div class="password-help">
+                        <ul>
+                            <li>Mật khẩu không được quá giống với thông tin cá nhân</li>
+                            <li>Mật khẩu phải chứa ít nhất 8 ký tự</li>
+                            <li>Mật khẩu không được phổ biến quá</li>
+                            <li>Mật khẩu phải chứa cả chữ và số</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-icon">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                        {{ form.password2 }}
+                    </div>
+                    {% if form.password2.errors %}
+                        <div class="error-message">
+                            {% for error in form.password2.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <button type="submit" class="btn-primary">
+                    <span>Đăng ký</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+                
+                <div class="divider">
+                    <span>hoặc</span>
+                </div>
+                
+                <div class="social-login">
+                    <button type="button" class="social-btn google">
+                        <i class="fab fa-google"></i>
+                        <span>Đăng ký với Google</span>
+                    </button>
+                    <button type="button" class="social-btn facebook">
+                        <i class="fab fa-facebook-f"></i>
+                        <span>Đăng ký với Facebook</span>
+                    </button>
+                </div>
+                
+                <div class="links">
+                    <a href="{% url 'login' %}" class="login-link">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span>Đã có tài khoản? Đăng nhập</span>
+                    </a>
+                    <a href="{% url 'home' %}" class="home-link">
+                        <i class="fas fa-home"></i>
+                        <span>Về trang chủ</span>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+<script>
+        document.querySelectorAll('.form-control').forEach(input => {
+            input.addEventListener('input', function() {
+                const errorMessage = this.closest('.form-group').querySelector('.error-message');
+                if (errorMessage) {
+                    errorMessage.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
