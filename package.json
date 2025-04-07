@@ -4,12 +4,12 @@
   "description": "Django project with Tailwind CSS",
   "scripts": {
     "dev": "tailwindcss -i ./ecommerce/static/src/input.css -o ./ecommerce/static/css/main.css --watch",
-    "build": "tailwindcss -i ./ecommerce/static/src/input.css -o ./ecommerce/static/css/main.css --minify",
-    "postinstall": "npm run build"
+    "build": "mkdir -p ./ecommerce/static/css && ./node_modules/.bin/tailwindcss -i ./ecommerce/static/src/input.css -o ./ecommerce/static/css/main.css --minify",
+    "postinstall": "chmod +x ./node_modules/.bin/tailwindcss && npm run build"
   },
   "engines": {
-    "node": ">=18.x",
-    "npm": ">=9.x"
+    "node": "18.x",
+    "npm": "9.x"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.21",
