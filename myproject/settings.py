@@ -24,10 +24,10 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keDep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = 'your-secret-key-here'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool('DEBUG', default=False)
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -92,10 +92,9 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": env('DB_NAME'),
-        "USER": env('DB_USER'),
-        "PASSWORD": env('DB_PASSWORD'),
-        "HOST": env('DB_HOST', default='localhost'),
+        "NAME": 'my_ecommerce',
+        "USER": 'root',
+        "PASSWORD": 'rmahviu@852005',
         'OPTIONS': {
             'charset': 'utf8mb4',
             'use_unicode': True,
@@ -149,7 +148,7 @@ if ecommerce_static_path.exists():
     STATICFILES_DIRS.append(ecommerce_static_path)
 
 # Đường dẫn tới thư mục 'staticfiles', nơi các tệp tĩnh sẽ được thu thập khi chạy collectstatic
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
 
 # MEDIA (file upload)
 MEDIA_URL = '/media/'
