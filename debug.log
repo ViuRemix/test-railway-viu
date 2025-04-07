@@ -40310,3 +40310,4 @@ Watching for file changes with StatReloader
 "GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
 "GET / HTTP/1.1" 200 124999
 "GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+D:\Python2\My_project_viu\django-ecommerce-viu-main\myproject\settings.py changed, reloading.
