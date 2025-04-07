@@ -1,1 +1,19 @@
 
+{
+  "build": {
+    "builder": "nixpacks",
+    "config": {
+      "phases": {
+        "setup": {
+          "nixPkgs": ["nodejs-18_x", "python3"]
+        },
+        "build": {
+          "commands": [
+            "npm install --unsafe-perm",
+            "python manage.py collectstatic --noinput"
+          ]
+        }
+      }
+    }
+  }
+}
