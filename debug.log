@@ -40252,3 +40252,61 @@ Watching for file changes with StatReloader
 "GET / HTTP/1.1" 200 133514
 "GET /media/profile_pictures/Avt_CjxJCgL.jpg HTTP/1.1" 304 0
 "GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+D:\Python2\My_project_viu\django-ecommerce-viu-main\myproject\settings.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Python2\My_project_viu\django-ecommerce-viu-main\myproject\settings.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+D:\Python2\My_project_viu\django-ecommerce-viu-main\ecommerce\urls.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Python2\My_project_viu\django-ecommerce-viu-main\ecommerce\urls.py changed, reloading.
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 124730
+"GET /static/css/bootstrap.min.css HTTP/1.1" 200 232803
+"GET /static/css/cssfavorites.css HTTP/1.1" 200 3898
+"GET /static/css/stylde_addcart.css HTTP/1.1" 200 3907
+"GET /static/css/base.css HTTP/1.1" 200 8888
+"GET /static/css/csscheckout.css HTTP/1.1" 200 8763
+"GET /static/css/product_detail.css HTTP/1.1" 200 14774
+"GET /static/css/my_orders.css HTTP/1.1" 200 8352
+"GET /static/css/css_home.css HTTP/1.1" 200 6558
+"GET /static/css/footer_view.css HTTP/1.1" 200 9493
+"GET /static/css/order_success_form.css HTTP/1.1" 200 11167
+"GET /static/css/category_detail.CSS HTTP/1.1" 200 2506
+"GET /static/css/css_all_items.css HTTP/1.1" 200 8443
+"GET /static/css/order_detail.css HTTP/1.1" 200 5238
+"GET /static/src/output.css HTTP/1.1" 200 29167
+"GET /static/css/css_profile.css HTTP/1.1" 200 8798
+"GET /static/css/main.css HTTP/1.1" 200 19889
+"GET /media/slides/slide_1_2I5N8vo.png HTTP/1.1" 200 50592
+"GET /media/slides/slide_2_GFe0GtE.png HTTP/1.1" 200 260130
+"GET /media/slides/slide_3_t10aHt9_CGSX330.png HTTP/1.1" 200 117206
+"GET /media/slides/slide_4_u7sFuJo.png HTTP/1.1" 200 84684
+D:\Python2\My_project_viu\django-ecommerce-viu-main\ecommerce\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Python2\My_project_viu\django-ecommerce-viu-main\ecommerce\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Python2\My_project_viu\django-ecommerce-viu-main\ecommerce\views.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Python2\My_project_viu\django-ecommerce-viu-main\ecommerce\views.py changed, reloading.
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 124999
+"GET /static/css/category_detail.CSS HTTP/1.1" 304 0
+"GET /media/profile_pictures/Avt_CjxJCgL.jpg HTTP/1.1" 304 0
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+D:\Python2\My_project_viu\django-ecommerce-viu-main\ecommerce\views.py changed, reloading.
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 124999
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /all-items/ HTTP/1.1" 200 95057
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /all-items/?view=list HTTP/1.1" 200 106417
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET / HTTP/1.1" 200 124999
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /profile/ HTTP/1.1" 200 46652
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET / HTTP/1.1" 200 124999
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET / HTTP/1.1" 200 124999
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005

@@ -251,18 +251,39 @@ class OrderItem(models.Model):
 
 class Coupon(models.Model):
     code = models.CharField(max_length=50, unique=True)
-    discount = models.IntegerField(help_text="Discount percentage (0-100)")
+    discount = models.DecimalField(max_digits=5, decimal_places=2)
     valid_from = models.DateTimeField()
     valid_to = models.DateTimeField()
     active = models.BooleanField(default=True)
+    min_purchase_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    max_discount_amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    usage_limit = models.PositiveIntegerField(default=1)
+    used_count = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.code} ({self.discount}% off)"
+        return self.code
 
-class ChatMessage(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-    message = models.TextField()
-    is_bot = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
+    def is_valid(self):
+        now = timezone.now()
+        return (
+            self.active and
+            self.valid_from <= now <= self.valid_to and
+            self.used_count < self.usage_limit
+        )
+
+    def apply_discount(self, total_amount):
+        if not self.is_valid():
+            return 0
+
+        discount_amount = (total_amount * self.discount) / 100
+
+        if self.min_purchase_amount and total_amount < self.min_purchase_amount:
+            return 0
+
+        if self.max_discount_amount and discount_amount > self.max_discount_amount:
+            return self.max_discount_amount
+
+        return discount_amount
 
