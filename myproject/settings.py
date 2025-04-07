@@ -9,9 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
 from pathlib import Path
-import dj_database_url
 import environ
 import os
 
@@ -25,13 +23,13 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
+# SECURITY WARNING: keDep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', default=False)
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['127.0.0.1', 'localhost'])
+ALLOWED_HOSTS = ["*"]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",
@@ -137,11 +135,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
+# Đường dẫn URL cho tệp tĩnh
 STATIC_URL = '/static/'
+
+# Cấu hình các thư mục chứa tệp tĩnh bổ sung
 STATICFILES_DIRS = []
+
+# Đường dẫn đến thư mục static của ứng dụng 'ecommerce'
 ecommerce_static_path = BASE_DIR / 'ecommerce' / 'static'
+
+# Nếu thư mục static của 'ecommerce' tồn tại, thêm vào STATICFILES_DIRS
 if ecommerce_static_path.exists():
-    STATICFILES_DIRS.append(str(ecommerce_static_path))
+    STATICFILES_DIRS.append(ecommerce_static_path)
+
+# Đường dẫn tới thư mục 'staticfiles', nơi các tệp tĩnh sẽ được thu thập khi chạy collectstatic
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # MEDIA (file upload)

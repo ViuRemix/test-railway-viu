@@ -40928,3 +40928,1035 @@ Watching for file changes with StatReloader
 "GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
 "GET /media/comment_images/hieuthu2.jpg HTTP/1.1" 200 698490
 "GET /media/comment_images/hieuthu2_eZyw8n5.jpg HTTP/1.1" 200 698490
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 124751
+"GET /static/css/base.css HTTP/1.1" 304 0
+"GET /static/css/csscheckout.css HTTP/1.1" 304 0
+"GET /static/css/cssfavorites.css HTTP/1.1" 304 0
+"GET /static/css/css_all_items.css HTTP/1.1" 304 0
+"GET /static/css/css_profile.css HTTP/1.1" 304 0
+"GET /static/css/css_home.css HTTP/1.1" 304 0
+"GET /static/css/category_detail.CSS HTTP/1.1" 304 0
+"GET /media/profile_pictures/Avt_CjxJCgL.jpg HTTP/1.1" 304 0
+"GET /static/css/product_detail.css HTTP/1.1" 200 14774
+"GET /static/js/script_footer.js HTTP/1.1" 304 0
+"GET /static/js/script_product_detail.js HTTP/1.1" 304 0
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 13541
+"POST /add-to-favorites/set-b-th-thao-dai-tay-trn-form-rng-unisex-tr-trung-nam-n-mc-dju-djc/ HTTP/1.1" 200 138
+"GET /favorites/ HTTP/1.1" 200 22133
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"POST /remove-from-favorites/set-b-th-thao-dai-tay-trn-form-rng-unisex-tr-trung-nam-n-mc-dju-djc/ HTTP/1.1" 200 98
+"GET /favorites/ HTTP/1.1" 200 21260
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET / HTTP/1.1" 200 124751
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /search/?q=qu%E1%BA%A7n+%C3%A1o+%C4%91%E1%BA%B9p HTTP/1.1" 200 39979
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /search/?q=qu%E1%BA%A7n+%C3%A1o HTTP/1.1" 200 44500
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /search/?q=qu%E1%BA%A7n HTTP/1.1" 200 76911
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /search/?q=qu%E1%BA%A7n&view=list HTTP/1.1" 200 86734
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ HTTP/1.1" 200 95057
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ HTTP/1.1" 200 95811
+"GET /static/css/stylde_addcart.css HTTP/1.1" 304 0
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ HTTP/1.1" 200 95587
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+Internal Server Error: /giay-dep/
+Traceback (most recent call last):
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\ecommerce\views.py", line 762, in giay_dep
+    return render(request, 'app/giay_dep.html', {'products': products, 'cart_items_count': cart_items_count})
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: app/giay_dep.html
+"GET /giay-dep/ HTTP/1.1" 500 87982
+"GET /san-pham/ HTTP/1.1" 200 95811
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ HTTP/1.1" 200 95812
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ HTTP/1.1" 200 95569
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ HTTP/1.1" 200 95573
+"GET /static/css/css_base.css HTTP/1.1" 200 9964
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ HTTP/1.1" 200 95576
+"GET /static/css/css_base.css HTTP/1.1" 200 9374
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ HTTP/1.1" 200 95576
+"GET /static/css/css_base.css HTTP/1.1" 304 0
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ HTTP/1.1" 200 95576
+"GET /static/css/css_base.css HTTP/1.1" 200 9374
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ HTTP/1.1" 200 95576
+"GET /static/css/css_base.css HTTP/1.1" 200 8935
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ HTTP/1.1" 200 95576
+"GET /static/css/css_base.css HTTP/1.1" 200 9964
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ HTTP/1.1" 200 95576
+"GET /static/css/css_base.css HTTP/1.1" 304 0
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ HTTP/1.1" 200 95576
+"GET /static/css/css_base.css HTTP/1.1" 200 10209
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ HTTP/1.1" 200 95576
+"GET /static/css/css_base.css HTTP/1.1" 304 0
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ HTTP/1.1" 200 95576
+"GET /static/css/css_base.css HTTP/1.1" 200 9477
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ HTTP/1.1" 200 95576
+"GET /static/css/css_base.css HTTP/1.1" 304 0
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ HTTP/1.1" 200 95576
+"GET /static/css/css_base.css HTTP/1.1" 304 0
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ HTTP/1.1" 200 95576
+"GET /static/css/css_base.css HTTP/1.1" 200 9599
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ HTTP/1.1" 200 95576
+"GET /static/css/css_base.css HTTP/1.1" 304 0
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ HTTP/1.1" 200 95576
+"GET /static/css/css_base.css HTTP/1.1" 200 9743
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ HTTP/1.1" 200 95576
+"GET /static/css/css_base.css HTTP/1.1" 304 0
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ HTTP/1.1" 200 95576
+"GET /static/css/css_base.css HTTP/1.1" 200 9746
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ HTTP/1.1" 200 95576
+"GET /static/css/css_base.css HTTP/1.1" 200 9743
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ HTTP/1.1" 200 98888
+"GET /static/css/css_base.css HTTP/1.1" 304 0
+"GET /static/js/script_base.js HTTP/1.1" 304 0
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ HTTP/1.1" 200 95572
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ HTTP/1.1" 200 95572
+"GET /static/css/css_base.css HTTP/1.1" 304 0
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ HTTP/1.1" 200 95572
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ HTTP/1.1" 200 95572
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ HTTP/1.1" 200 95572
+"GET /static/css/css_base.css HTTP/1.1" 200 9735
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ HTTP/1.1" 200 95572
+"GET /static/css/css_base.css HTTP/1.1" 200 9735
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ HTTP/1.1" 200 95572
+"GET /static/css/css_base.css HTTP/1.1" 200 9738
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ HTTP/1.1" 200 95572
+"GET /static/css/css_base.css HTTP/1.1" 200 9735
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ HTTP/1.1" 200 95572
+"GET /static/css/css_base.css HTTP/1.1" 200 9735
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ HTTP/1.1" 200 95572
+"GET /static/css/css_base.css HTTP/1.1" 200 9735
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET / HTTP/1.1" 200 125266
+"GET /static/css/css_base.css HTTP/1.1" 304 0
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET / HTTP/1.1" 200 125266
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+Watching for file changes with StatReloader
+D:\Python2\My_project_viu\django-ecommerce-viu-main\ecommerce\views.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Python2\My_project_viu\django-ecommerce-viu-main\ecommerce\views.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Python2\My_project_viu\django-ecommerce-viu-main\ecommerce\views.py changed, reloading.
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 126767
+"GET /static/css/css_base.css HTTP/1.1" 304 0
+"GET /static/css/product_detail.css HTTP/1.1" 304 0
+"GET /static/css/category_detail.CSS HTTP/1.1" 304 0
+"GET /media/profile_pictures/Avt_CjxJCgL.jpg HTTP/1.1" 304 0
+"GET /static/css/css_category.css HTTP/1.1" 200 6112
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET / HTTP/1.1" 200 126767
+"GET /static/css/css_category.css HTTP/1.1" 304 0
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /giay-dep/?subcategory=Gi%C3%A0y%20th%E1%BB%83%20thao HTTP/1.1" 200 31519
+"GET /static/css/css_category.css HTTP/1.1" 304 0
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /giay-dep/?subcategory=Gi%C3%A0y%20cao%20g%C3%B3t HTTP/1.1" 200 31519
+"GET /static/css/css_category.css HTTP/1.1" 304 0
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /giay-dep/?subcategory=D%C3%A9p%20sandal HTTP/1.1" 200 31519
+"GET /static/css/css_category.css HTTP/1.1" 304 0
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /giay-dep/?subcategory=D%C3%A9p+sandal&sort=price_low HTTP/1.1" 200 31519
+"GET /static/css/css_category.css HTTP/1.1" 304 0
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /giay-dep/?subcategory=D%C3%A9p+sandal&sort=price_high HTTP/1.1" 200 31519
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET / HTTP/1.1" 200 126767
+"GET /static/css/css_category.css HTTP/1.1" 304 0
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/set-b-th-thao-dai-tay-trn-form-rng-unisex-tr-trung-nam-n-mc-dju-djc/ HTTP/1.1" 200 59596
+"GET /media/comment_images/hieuthu2.jpg HTTP/1.1" 200 698490
+"GET /media/comment_images/hieuthu2_eZyw8n5.jpg HTTP/1.1" 200 698490
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET / HTTP/1.1" 200 126767
+"GET /static/css/css_category.css HTTP/1.1" 304 0
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /all-items/ HTTP/1.1" 200 43715
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /all-items/?page=2 HTTP/1.1" 200 32338
+"GET /static/css/css_category.css HTTP/1.1" 304 0
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET / HTTP/1.1" 200 126767
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /giam-gia/ HTTP/1.1" 200 33316
+"GET /static/css/css_category.css HTTP/1.1" 304 0
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /phu-kien/?subcategory=N%C3%B3n HTTP/1.1" 200 31519
+"GET /static/css/css_category.css HTTP/1.1" 304 0
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /giay-dep/?subcategory=Gi%C3%A0y%20th%E1%BB%83%20thao HTTP/1.1" 200 31519
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /tui-vi/?subcategory=V%C3%AD%20da HTTP/1.1" 200 31519
+"GET /static/css/css_category.css HTTP/1.1" 304 0
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+Internal Server Error: /about/
+Traceback (most recent call last):
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\ecommerce\views.py", line 1115, in about
+    return render(request, 'app/about.html', {'cart_items_count': cart_items_count})
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: app/about.html
+"GET /about/ HTTP/1.1" 500 86646
+"GET /tui-vi/?subcategory=V%C3%AD%20da HTTP/1.1" 200 31615
+"GET /static/css/css_base.css HTTP/1.1" 304 0
+"GET /static/css/css_category.css HTTP/1.1" 200 6112
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET / HTTP/1.1" 200 126767
+"GET /static/css/css_category.css HTTP/1.1" 304 0
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /all-items/ HTTP/1.1" 200 43810
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /all-items/ HTTP/1.1" 200 133858
+"GET /static/css/css_category.css HTTP/1.1" 304 0
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /giay-dep/?subcategory=Gi%C3%A0y%20th%E1%BB%83%20thao HTTP/1.1" 200 41985
+"GET /static/css/css_category.css HTTP/1.1" 304 0
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /giay-dep/?subcategory=Gi%C3%A0y%20th%E1%BB%83%20thao HTTP/1.1" 200 41921
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /giay-dep/?subcategory=Gi%C3%A0y%20th%E1%BB%83%20thao HTTP/1.1" 200 41921
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /giay-dep/?subcategory=Gi%C3%A0y%20cao%20g%C3%B3t HTTP/1.1" 200 41917
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /tui-vi/?subcategory=T%C3%BAi%20x%C3%A1ch HTTP/1.1" 200 41909
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /phu-kien/?subcategory=N%C3%B3n HTTP/1.1" 200 41897
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /phu-kien/?subcategory=Kh%C4%83n%20cho%C3%A0ng HTTP/1.1" 200 41915
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /phu-kien/?subcategory=Th%E1%BA%AFt%20l%C6%B0ng HTTP/1.1" 200 51095
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /phu-kien/?subcategory=Th%E1%BA%AFt%20l%C6%B0ng HTTP/1.1" 200 51095
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /phu-kien/?subcategory=Th%E1%BA%AFt+l%C6%B0ng&sort=price-asc HTTP/1.1" 200 51095
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET / HTTP/1.1" 200 126703
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ HTTP/1.1" 200 97009
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET / HTTP/1.1" 200 126703
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ao-polo-n-ao-polo-n-thu-djong-cht-n-2-mt-day-djp-co-khoa-keo-in-hinh-merit/ HTTP/1.1" 200 61732
+"GET /media/profile_pictures/hieuthu2.jpg HTTP/1.1" 304 0
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET / HTTP/1.1" 200 126703
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/set-dj-n-ao-2-day-lch-vai-mix-vi-qun-ng-rng-cht-ren-li-thoang-mat-phong-cach-thang-lch-sang-trng-gin62store/ HTTP/1.1" 200 66614
+"GET /media/comment_images/vn-11134207-7r98o-lxvazviny5zv20.webp HTTP/1.1" 304 0
+"GET /media/comment_images/vn-11134207-7r98o-lxvazviny5zv20_eyzQfa9.webp HTTP/1.1" 304 0
+"GET /media/comment_images/vn-11134207-7r98o-lrzbaz1jdnrt5c.webp HTTP/1.1" 304 0
+"GET /media/comment_images/vn-11134207-7r98o-lrzbaz1jdnrt5c_sGs0ei7.webp HTTP/1.1" 304 0
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /giam-gia/ HTTP/1.1" 200 55519
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/set-dj-n-freesize-from-rng-ao-phong-theu-logo-nga-kem-qun-ng-rng-cht-kiu-cotton-mm-mn/ HTTP/1.1" 200 58958
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /profile/ HTTP/1.1" 200 48604
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET / HTTP/1.1" 200 126703
+"GET /static/css/css_base.css HTTP/1.1" 304 0
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /category/1/ HTTP/1.1" 200 35224
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET / HTTP/1.1" 200 126703
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /all-items/ HTTP/1.1" 200 133794
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/set-dj-n-ao-2-day-lch-vai-mix-vi-qun-ng-rng-cht-ren-li-thoang-mat-phong-cach-thang-lch-sang-trng-gin62store/ HTTP/1.1" 200 66614
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /giay-dep/?subcategory=Gi%C3%A0y%20th%E1%BB%83%20thao HTTP/1.1" 200 41921
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /phu-kien/?subcategory=Th%E1%BA%AFt%20l%C6%B0ng HTTP/1.1" 200 51095
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /phu-kien/?subcategory=Th%E1%BA%AFt+l%C6%B0ng&min_price=1200000&max_price=3000000 HTTP/1.1" 200 41911
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /phu-kien/?subcategory=Th%E1%BA%AFt+l%C6%B0ng&min_price=0&max_price=3000000 HTTP/1.1" 200 51081
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /phu-kien/?subcategory=Th%E1%BA%AFt+l%C6%B0ng&min_price=100000&max_price=3000000 HTTP/1.1" 200 41909
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET / HTTP/1.1" 200 126703
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /all-items/ HTTP/1.1" 200 133794
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /all-items/?min_price=100000&max_price=3000000 HTTP/1.1" 200 41922
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /all-items/?min_price=100000&max_price=3000000&color=green HTTP/1.1" 200 42414
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /all-items/?color=green HTTP/1.1" 200 46834
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /all-items/?color=green&category=3 HTTP/1.1" 200 42401
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /all-items/?category=3 HTTP/1.1" 200 73579
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /all-items/?category=3&sort=rating HTTP/1.1" 200 73579
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /all-items/?sort=rating&category=3 HTTP/1.1" 200 73579
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /giay-dep/?subcategory=Gi%C3%A0y%20th%E1%BB%83%20thao HTTP/1.1" 200 41921
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET / HTTP/1.1" 200 126703
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /profile/ HTTP/1.1" 200 48604
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET / HTTP/1.1" 200 126703
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ao-s-mi-flannel-dai-tay-sc-caro-dino-x-yumi-s-mi-k-form-rng-phong-cach-unisex-sm05/ HTTP/1.1" 200 58423
+"GET /static/css/css_base.css HTTP/1.1" 304 0
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"POST /cart/add/ao-s-mi-flannel-dai-tay-sc-caro-dino-x-yumi-s-mi-k-form-rng-phong-cach-unisex-sm05/ HTTP/1.1" 200 139
+"GET /checkout/ HTTP/1.1" 200 51931
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /admin/ HTTP/1.1" 200 39811
+"GET /admin/ecommerce/comment/ HTTP/1.1" 200 37659
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+Internal Server Error: /admin/ecommerce/coupon/
+Traceback (most recent call last):
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\backends\mysql\base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+    ~~~~~~~~^^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+MySQLdb.OperationalError: (1054, "Unknown column 'ecommerce_coupon.min_purchase_amount' in 'SELECT'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\contrib\admin\options.py", line 718, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\utils\decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\utils\decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\views\decorators\cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\contrib\admin\sites.py", line 241, in inner
+    return view(request, *args, **kwargs)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\utils\decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\utils\decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\contrib\admin\options.py", line 2140, in changelist_view
+    "selection_note": _("0 of %(cnt)s selected") % {"cnt": len(cl.result_list)},
+                                                           ~~~^^^^^^^^^^^^^^^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\models\query.py", line 382, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\models\query.py", line 1928, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\models\query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\models\sql\compiler.py", line 1574, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\backends\mysql\base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+    ~~~~~~~~^^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.OperationalError: (1054, "Unknown column 'ecommerce_coupon.min_purchase_amount' in 'SELECT'")
+"GET /admin/ecommerce/coupon/ HTTP/1.1" 500 206253
+"GET /admin/ecommerce/comment/ HTTP/1.1" 200 37659
+Internal Server Error: /admin/ecommerce/coupon/
+Traceback (most recent call last):
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\backends\mysql\base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+    ~~~~~~~~^^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+MySQLdb.OperationalError: (1054, "Unknown column 'ecommerce_coupon.min_purchase_amount' in 'SELECT'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\contrib\admin\options.py", line 718, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\utils\decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\utils\decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\views\decorators\cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\contrib\admin\sites.py", line 241, in inner
+    return view(request, *args, **kwargs)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\utils\decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\utils\decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\contrib\admin\options.py", line 2140, in changelist_view
+    "selection_note": _("0 of %(cnt)s selected") % {"cnt": len(cl.result_list)},
+                                                           ~~~^^^^^^^^^^^^^^^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\models\query.py", line 382, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\models\query.py", line 1928, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\models\query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\models\sql\compiler.py", line 1574, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\backends\mysql\base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+    ~~~~~~~~^^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.OperationalError: (1054, "Unknown column 'ecommerce_coupon.min_purchase_amount' in 'SELECT'")
+"GET /admin/ecommerce/coupon/ HTTP/1.1" 500 206253
+"GET /admin/ecommerce/comment/ HTTP/1.1" 200 37659
+"GET /admin/ecommerce/featuredproduct/ HTTP/1.1" 200 18670
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/instagrampost/ HTTP/1.1" 200 27662
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/orderitem/ HTTP/1.1" 200 25630
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/order/ HTTP/1.1" 200 38095
+"GET /admin/ecommerce/productimage/ HTTP/1.1" 200 17800
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/order/ HTTP/1.1" 200 38095
+"GET /admin/ecommerce/product/ HTTP/1.1" 200 59786
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/slide/ HTTP/1.1" 200 24731
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+Internal Server Error: /admin/ecommerce/coupon/
+Traceback (most recent call last):
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\backends\mysql\base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+    ~~~~~~~~^^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+MySQLdb.OperationalError: (1054, "Unknown column 'ecommerce_coupon.min_purchase_amount' in 'SELECT'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\contrib\admin\options.py", line 718, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\utils\decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\utils\decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\views\decorators\cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\contrib\admin\sites.py", line 241, in inner
+    return view(request, *args, **kwargs)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\utils\decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\utils\decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\contrib\admin\options.py", line 2140, in changelist_view
+    "selection_note": _("0 of %(cnt)s selected") % {"cnt": len(cl.result_list)},
+                                                           ~~~^^^^^^^^^^^^^^^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\models\query.py", line 382, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\models\query.py", line 1928, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\models\query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\models\sql\compiler.py", line 1574, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\django\db\backends\mysql\base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+    ~~~~~~~~^^^
+  File "D:\Python2\My_project_viu\django-ecommerce-viu-main\env\Lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.OperationalError: (1054, "Unknown column 'ecommerce_coupon.min_purchase_amount' in 'SELECT'")
+"GET /admin/ecommerce/coupon/ HTTP/1.1" 500 206251
+"GET /admin/ecommerce/coupon/ HTTP/1.1" 200 24923
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/comment/ HTTP/1.1" 200 37659
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/coupon/ HTTP/1.1" 200 24923
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/featuredproduct/ HTTP/1.1" 200 18670
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/instagrampost/ HTTP/1.1" 200 27662
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/orderitem/ HTTP/1.1" 200 25630
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/order/ HTTP/1.1" 200 38095
+"GET /admin/ecommerce/brand/ HTTP/1.1" 200 24811
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/category/ HTTP/1.1" 200 21701
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/comment/ HTTP/1.1" 200 37659
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/coupon/ HTTP/1.1" 200 24923
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/coupon/add/ HTTP/1.1" 200 26623
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"POST /admin/ecommerce/coupon/add/ HTTP/1.1" 200 27127
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"POST /admin/ecommerce/coupon/add/ HTTP/1.1" 200 27019
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"POST /admin/ecommerce/coupon/add/ HTTP/1.1" 302 0
+"GET /admin/ecommerce/coupon/ HTTP/1.1" 200 26107
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/coupon/ HTTP/1.1" 200 25542
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"POST /validate-promo/ HTTP/1.1" 200 90
+"POST /validate-promo/ HTTP/1.1" 200 90
+"GET /admin/ecommerce/coupon/2/change/ HTTP/1.1" 200 27404
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"POST /admin/ecommerce/coupon/2/change/ HTTP/1.1" 302 0
+"GET /admin/ecommerce/coupon/ HTTP/1.1" 200 26110
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"POST /validate-promo/ HTTP/1.1" 200 90
+"POST /validate-promo/ HTTP/1.1" 200 90
+"POST /validate-promo/ HTTP/1.1" 200 90
+"POST /validate-promo/ HTTP/1.1" 200 90
+"POST /validate-promo/ HTTP/1.1" 200 90
+"GET /admin/ecommerce/coupon/2/change/ HTTP/1.1" 200 27404
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"POST /admin/ecommerce/coupon/2/change/ HTTP/1.1" 302 0
+"GET /admin/ecommerce/coupon/ HTTP/1.1" 200 26108
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"POST /validate-promo/ HTTP/1.1" 200 90
+"GET /admin/ecommerce/coupon/2/change/ HTTP/1.1" 200 27404
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/coupon/ HTTP/1.1" 200 25541
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/coupon/add/ HTTP/1.1" 200 26623
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/coupon/ HTTP/1.1" 200 25541
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"POST /validate-promo/ HTTP/1.1" 200 90
+"POST /validate-promo/ HTTP/1.1" 200 90
+"POST /validate-promo/ HTTP/1.1" 200 90
+"POST /validate-promo/ HTTP/1.1" 200 90
+"POST /validate-promo/ HTTP/1.1" 200 90
+"POST /validate-promo/ HTTP/1.1" 200 90
+"POST /validate-promo/ HTTP/1.1" 200 90
+"POST /validate-promo/ HTTP/1.1" 200 90
+"POST /process-checkout/ HTTP/1.1" 200 64
+"GET /order-success/3CCD6D8CB4E/ HTTP/1.1" 200 29796
+"GET /static/css/css_base.css HTTP/1.1" 304 0
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 13541
+"GET /my-orders/ HTTP/1.1" 200 35978
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /my-orders/3CCD6D8CB4E/ HTTP/1.1" 200 30009
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /admin/ecommerce/order/ HTTP/1.1" 200 39109
+"GET /admin/ecommerce/order/43/change/ HTTP/1.1" 200 44812
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/order/ HTTP/1.1" 200 39109
+"GET /admin/ecommerce/order/43/change/ HTTP/1.1" 200 44812
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"POST /admin/ecommerce/order/43/change/ HTTP/1.1" 302 0
+"GET /admin/ecommerce/order/ HTTP/1.1" 200 39692
+"GET /my-orders/3CCD6D8CB4E/ HTTP/1.1" 200 30022
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /admin/ecommerce/order/43/change/ HTTP/1.1" 200 44812
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"POST /admin/ecommerce/order/43/change/ HTTP/1.1" 302 0
+"GET /admin/ecommerce/order/ HTTP/1.1" 200 39197
+"GET /my-orders/3CCD6D8CB4E/ HTTP/1.1" 200 30048
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /profile/ HTTP/1.1" 200 51742
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /my-orders/3CCD6D8CB4E/ HTTP/1.1" 200 30048
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"POST /rebuy-order/3CCD6D8CB4E/ HTTP/1.1" 200 101
+"GET /view-cart/ HTTP/1.1" 200 42327
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /admin/ecommerce/order/43/change/ HTTP/1.1" 200 44812
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"POST /admin/ecommerce/order/43/change/ HTTP/1.1" 302 0
+"GET /admin/ecommerce/order/ HTTP/1.1" 200 39192
+"GET /profile/ HTTP/1.1" 200 48604
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET / HTTP/1.1" 200 126703
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ao-s-mi-nam-n-tay-ngn-cht-kaki-cao-cp-kiu-dang-form-rng-unisex-d-phi-dj-mc-cc-djp/ HTTP/1.1" 200 58893
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"POST /cart/add/ao-s-mi-nam-n-tay-ngn-cht-kaki-cao-cp-kiu-dang-form-rng-unisex-d-phi-dj-mc-cc-djp/ HTTP/1.1" 200 139
+"GET /checkout/ HTTP/1.1" 200 53070
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /admin/ecommerce/color/ HTTP/1.1" 200 22906
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/coupon/ HTTP/1.1" 200 25541
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"POST /validate-promo/ HTTP/1.1" 200 90
+"GET /admin/ecommerce/coupon/2/change/ HTTP/1.1" 200 27404
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"POST /admin/ecommerce/coupon/2/change/ HTTP/1.1" 302 0
+"GET /admin/ecommerce/coupon/ HTTP/1.1" 200 26109
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"POST /validate-promo/ HTTP/1.1" 200 188
+"GET /admin/ecommerce/coupon/1/change/ HTTP/1.1" 200 27403
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"POST /admin/ecommerce/coupon/1/change/ HTTP/1.1" 302 0
+"GET /admin/ecommerce/coupon/ HTTP/1.1" 200 26110
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/coupon/2/change/ HTTP/1.1" 200 27419
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/coupon/ HTTP/1.1" 200 25543
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 13541
+"POST /process-checkout/ HTTP/1.1" 200 88
+"POST /process-checkout/ HTTP/1.1" 200 88
+"GET /checkout/ HTTP/1.1" 200 53070
+"GET /static/css/css_base.css HTTP/1.1" 304 0
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"POST /process-checkout/ HTTP/1.1" 200 64
+"GET /order-success/52A2EBFB55D/ HTTP/1.1" 200 31237
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /admin/ecommerce/order/ HTTP/1.1" 200 39626
+"GET /admin/ecommerce/order/?q=52A2EBFB55D HTTP/1.1" 200 25666
+"GET /admin/ecommerce/order/44/change/?_changelist_filters=q%3D52A2EBFB55D HTTP/1.1" 200 48047
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /my-orders/ HTTP/1.1" 200 36759
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /view-cart/ HTTP/1.1" 200 30555
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET / HTTP/1.1" 200 126632
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /category/3/ HTTP/1.1" 200 43348
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ao-thun-tr-em-be-trai-be-gai-ao-thun-ngn-tay-be-trai-ch-endear-thun-cotton-4-chiu-cao-cp-thi-trang-dream-house/ HTTP/1.1" 200 57608
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"POST /cart/add/ao-thun-tr-em-be-trai-be-gai-ao-thun-ngn-tay-be-trai-ch-endear-thun-cotton-4-chiu-cao-cp-thi-trang-dream-house/ HTTP/1.1" 200 139
+"GET /checkout/ HTTP/1.1" 200 50918
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"POST /process-checkout/ HTTP/1.1" 200 64
+"GET /order-success/EFCF0837980/ HTTP/1.1" 200 28485
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /admin/ecommerce/order/ HTTP/1.1" 200 40645
+"GET /admin/ecommerce/order/?q=M%C3%A3+%C4%91%C6%A1n+h%C3%A0ng%3A+ HTTP/1.1" 200 21047
+"GET /admin/ecommerce/orderitem/ HTTP/1.1" 200 29153
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/orderitem/26/change/ HTTP/1.1" 200 32217
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /static/admin/img/icon-deletelink.svg HTTP/1.1" 200 392
+"GET /admin/ecommerce/orderitem/ HTTP/1.1" 200 29153
+"GET /admin/ecommerce/order/ HTTP/1.1" 200 40645
+"GET /admin/ecommerce/order/?q=M%C3%A3+%C4%91%C6%A1n+h%C3%A0ng%3A+ HTTP/1.1" 200 21047
+"GET /admin/ecommerce/order/?q= HTTP/1.1" 200 41450
+"GET /admin/ecommerce/order/45/change/?_changelist_filters=q%3D HTTP/1.1" 200 41774
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /my-orders/ HTTP/1.1" 200 39272
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /my-orders/?status=pending HTTP/1.1" 200 33142
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"POST /admin/ecommerce/order/45/change/?_changelist_filters=q%3D HTTP/1.1" 302 0
+"GET /admin/ecommerce/order/ HTTP/1.1" 200 41221
+"GET /my-orders/?status=pending HTTP/1.1" 200 30629
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /my-orders/?status=shipped HTTP/1.1" 200 32908
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /my-orders/?status=delivered HTTP/1.1" 200 28973
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /my-orders/?status=shipped HTTP/1.1" 200 32908
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /my-orders/?status=pending HTTP/1.1" 200 30629
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /my-orders/?status=shipped HTTP/1.1" 200 32908
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /my-orders/?status=delivered HTTP/1.1" 200 28973
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /my-orders/ HTTP/1.1" 200 39150
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /profile/ HTTP/1.1" 200 54315
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /profile/ HTTP/1.1" 200 54315
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /admin/ecommerce/order/45/change/ HTTP/1.1" 200 41724
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"POST /admin/ecommerce/order/45/change/ HTTP/1.1" 302 0
+"GET /admin/ecommerce/order/ HTTP/1.1" 200 40733
+"GET /profile/ HTTP/1.1" 200 54819
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"POST /rebuy-order/EFCF0837980/ HTTP/1.1" 200 101
+"GET /view-cart/ HTTP/1.1" 200 37509
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /my-orders/EFCF0837980/ HTTP/1.1" 200 29406
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET / HTTP/1.1" 200 126703
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /category/3/ HTTP/1.1" 200 43419
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ao-thun-tr-em-be-trai-be-gai-ao-thun-ngn-tay-be-trai-ch-endear-thun-cotton-4-chiu-cao-cp-thi-trang-dream-house/ HTTP/1.1" 200 57679
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ao-thun-tr-em-be-trai-be-gai-ao-thun-ngn-tay-be-trai-ch-endear-thun-cotton-4-chiu-cao-cp-thi-trang-dream-house/ HTTP/1.1" 200 57679
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /profile/ HTTP/1.1" 200 54890
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"POST /review-order/EFCF0837980/ HTTP/1.1" 200 95
+"GET /san-pham/ao-thun-tr-em-be-trai-be-gai-ao-thun-ngn-tay-be-trai-ch-endear-thun-cotton-4-chiu-cao-cp-thi-trang-dream-house/ HTTP/1.1" 200 58978
+"GET /static/css/css_base.css HTTP/1.1" 304 0
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"POST /add-comment/ao-thun-tr-em-be-trai-be-gai-ao-thun-ngn-tay-be-trai-ch-endear-thun-cotton-4-chiu-cao-cp-thi-trang-dream-house/ HTTP/1.1" 200 463
+"GET /media/comment_images/vn-11134207-7r98o-lqyhort5ga6xb6.webp HTTP/1.1" 200 18768
+"GET /media/comment_images/vn-11134207-7r98o-lqyhort5ga6xb6_YXwiH9Y.webp HTTP/1.1" 200 18768
+"GET /admin/ecommerce/order/ HTTP/1.1" 200 40149
+"GET /admin/ecommerce/order/8/change/ HTTP/1.1" 200 38498
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/order/ HTTP/1.1" 200 40149
+"GET /admin/ecommerce/order/45/change/ HTTP/1.1" 200 41724
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/product/20/change/ HTTP/1.1" 200 44989
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"POST /admin/ecommerce/product/20/change/ HTTP/1.1" 302 0
+"GET /admin/ecommerce/product/ HTTP/1.1" 200 60481
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/brand/ HTTP/1.1" 200 24811
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /phu-kien/?subcategory=N%C3%B3n HTTP/1.1" 200 41897
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /tui-vi/?subcategory=T%C3%BAi%20x%C3%A1ch HTTP/1.1" 200 41909
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /phu-kien/?subcategory=Th%E1%BA%AFt%20l%C6%B0ng HTTP/1.1" 200 51095
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET / HTTP/1.1" 200 126703
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /all-items/ HTTP/1.1" 200 133794
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /all-items/?category=2 HTTP/1.1" 200 78640
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /all-items/ HTTP/1.1" 200 133794
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /all-items/?view=list HTTP/1.1" 200 156656
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/ HTTP/1.1" 200 97009
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/?color=red HTTP/1.1" 200 51629
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /giam-gia/ HTTP/1.1" 200 55519
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /san-pham/set-dj-n-ao-2-day-lch-vai-mix-vi-qun-ng-rng-cht-ren-li-thoang-mat-phong-cach-thang-lch-sang-trng-gin62store/ HTTP/1.1" 200 66614
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"POST /cart/add/set-dj-n-ao-2-day-lch-vai-mix-vi-qun-ng-rng-cht-ren-li-thoang-mat-phong-cach-thang-lch-sang-trng-gin62store/ HTTP/1.1" 200 139
+"GET /checkout/ HTTP/1.1" 200 52093
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /view-cart/ HTTP/1.1" 200 42556
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"POST /delete-cart-item/122/ HTTP/1.1" 200 160
+"POST /delete-cart-item/123/ HTTP/1.1" 200 158
+"GET /view-cart/ HTTP/1.1" 200 30555
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET / HTTP/1.1" 200 126632
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /profile/ HTTP/1.1" 200 54819
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /search/?q=qu%E1%BA%A7n HTTP/1.1" 200 78792
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /search/?q=qu%E1%BA%A7n&sort=price-asc HTTP/1.1" 200 78792
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /search/?q=qu%E1%BA%A7n&sort=price-asc&sort=price-desc HTTP/1.1" 200 78792
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /search/?q=qu%E1%BA%A7n&sort=price-asc&sort=price-desc&view=list HTTP/1.1" 200 88615
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /search/?q=qu%E1%BA%A7n&sort=price-asc&sort=price-desc&view=list&category=4 HTTP/1.1" 200 42340
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /search/?q=qu%E1%BA%A7n&sort=price-asc&sort=price-desc&view=list&category=4 HTTP/1.1" 200 42340
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /search/?q=qu%E1%BA%A7n&sort=price-asc&sort=price-desc&view=list&category=4 HTTP/1.1" 200 42340
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /search/?q=qu%E1%BA%A7n&sort=price-asc&sort=price-desc&view=list&category=3&category=4 HTTP/1.1" 200 65049
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET / HTTP/1.1" 200 126632
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /admin/ecommerce/coupon/ HTTP/1.1" 200 25543
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/featuredproduct/ HTTP/1.1" 200 18670
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/instagrampost/ HTTP/1.1" 200 27662
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/order/ HTTP/1.1" 200 40149
+"GET /admin/ecommerce/product/ HTTP/1.1" 200 59783
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/product/add/ HTTP/1.1" 200 43202
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/coupon/ HTTP/1.1" 200 25543
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/comment/ HTTP/1.1" 200 39602
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/color/ HTTP/1.1" 200 22906
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/product/ HTTP/1.1" 200 59783
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/color/ HTTP/1.1" 200 22906
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/category/ HTTP/1.1" 200 21701
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/cartitem/ HTTP/1.1" 200 31333
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/featuredproduct/ HTTP/1.1" 200 18670
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/featuredproduct/add/ HTTP/1.1" 200 23772
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/coupon/ HTTP/1.1" 200 25543
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/coupon/?valid_from__gte=2025-03-31+00%3A00%3A00%2B00%3A00&q= HTTP/1.1" 200 26153
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/coupon/?active__exact=0&q= HTTP/1.1" 200 21915
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/comment/ HTTP/1.1" 200 39602
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/comment/15/change/ HTTP/1.1" 200 27883
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ HTTP/1.1" 200 41895
+"GET /admin/auth/user/ HTTP/1.1" 200 25669
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /all-items/ HTTP/1.1" 200 133723
+"GET /static/css/css_base.css HTTP/1.1" 304 0
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /profile/ HTTP/1.1" 200 54819
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /admin/ecommerce/orderitem/ HTTP/1.1" 200 29153
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/order/ HTTP/1.1" 200 40149
+"GET /admin/ecommerce/order/44/change/ HTTP/1.1" 200 47975
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"POST /admin/ecommerce/order/44/change/ HTTP/1.1" 302 0
+"GET /admin/ecommerce/order/ HTTP/1.1" 200 40725
+"GET /profile/ HTTP/1.1" 200 54573
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /admin/ecommerce/order/45/change/ HTTP/1.1" 200 41724
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/order/ HTTP/1.1" 200 40141
+"GET /admin/ecommerce/order/44/change/ HTTP/1.1" 200 47975
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"POST /admin/ecommerce/order/44/change/ HTTP/1.1" 302 0
+"GET /admin/ecommerce/order/ HTTP/1.1" 200 40733
+"GET /profile/ HTTP/1.1" 200 54819
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+"GET /admin/ecommerce/brand/ HTTP/1.1" 200 24811
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/cartitem/ HTTP/1.1" 200 31333
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/category/ HTTP/1.1" 200 21701
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/color/ HTTP/1.1" 200 22906
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/comment/ HTTP/1.1" 200 39602
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/comment/15/change/ HTTP/1.1" 200 27883
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/ecommerce/comment/ HTTP/1.1" 200 39602
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 126632
+"GET /static/css/product_detail.css HTTP/1.1" 304 0
+"GET /static/css/stylde_addcart.css HTTP/1.1" 304 0
+"GET /static/css/cssfavorites.css HTTP/1.1" 304 0
+"GET /static/css/csscheckout.css HTTP/1.1" 304 0
+"GET /static/css/css_profile.css HTTP/1.1" 304 0
+"GET /static/css/css_home.css HTTP/1.1" 304 0
+"GET /static/css/css_all_items.css HTTP/1.1" 304 0
+"GET /static/css/category_detail.CSS HTTP/1.1" 304 0
+"GET /media/profile_pictures/Avt_CjxJCgL.jpg HTTP/1.1" 304 0
+"GET /static/css/css_base.css HTTP/1.1" 200 9735
+"GET /static/js/script_footer.js HTTP/1.1" 304 0
+"GET /static/js/script_base.js HTTP/1.1" 304 0
+"GET /static/js/script_product_detail.js HTTP/1.1" 304 0
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 13541
+D:\PYTHON_ANYWHERE\myproject\myproject\settings.py changed, reloading.
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 126632
+"GET /static/js/script_productDetail.js HTTP/1.1" 404 2005
+D:\PYTHON_ANYWHERE\myproject\myproject\settings.py changed, reloading.
+Watching for file changes with StatReloader
+D:\PYTHON_ANYWHERE\myproject\myproject\settings.py changed, reloading.
+Watching for file changes with StatReloader
+D:\PYTHON_ANYWHERE\myproject\myproject\settings.py changed, reloading.
+Watching for file changes with StatReloader
+D:\PYTHON_ANYWHERE\myproject\myproject\settings.py changed, reloading.
+Watching for file changes with StatReloader

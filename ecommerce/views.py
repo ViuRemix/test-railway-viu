@@ -757,24 +757,358 @@ def san_pham(request):
     return render(request, 'app/all_items.html', context)
 
 def giay_dep(request):
+    subcategory = request.GET.get('subcategory', '')
     products = Product.objects.filter(category__name="Giày dép", is_active=True)
+    
+    if subcategory:
+        products = products.filter(name__icontains=subcategory)
+    
+    # Get filter parameters
+    selected_categories = request.GET.getlist('category', [])
+    min_price = request.GET.get('min_price', '')
+    max_price = request.GET.get('max_price', '3000000')
+    selected_colors = request.GET.getlist('color', [])
+    selected_sizes = request.GET.getlist('size', [])
+    sort_by = request.GET.get('sort', 'newest')
+    view_mode = request.GET.get('view', 'grid')
+
+    # Apply filters
+    if selected_categories:
+        products = products.filter(category_id__in=selected_categories)
+
+    if min_price:
+        try:
+            min_price_value = float(min_price)
+            products = products.filter(price__gte=min_price_value)
+        except ValueError:
+            pass
+
+    if max_price:
+        try:
+            max_price_value = float(max_price)
+            products = products.filter(price__lte=max_price_value)
+        except ValueError:
+            pass
+
+    if selected_colors:
+        products = products.filter(colors__name__in=selected_colors)
+
+    if selected_sizes:
+        products = products.filter(size__name__in=selected_sizes)
+
+    # Apply sorting
+    if sort_by == 'price-asc':
+        products = products.order_by('price')
+    elif sort_by == 'price-desc':
+        products = products.order_by('-price')
+    elif sort_by == 'rating':
+        products = products.order_by('-rating')
+    else:  # newest
+        products = products.order_by('-created_at')
+
+    # Pagination
+    paginator = Paginator(products, 12)
+    page = request.GET.get('page', 1)
+    try:
+        products = paginator.page(page)
+    except (PageNotAnInteger, EmptyPage):
+        products = paginator.page(1)
+
+    # Get all categories and colors
+    categories = Category.objects.all()
+    colors = Color.objects.all()
+    sizes = Size.objects.values_list('name', flat=True)
+
+    # Prepare filter tags
+    filter_tags = []
+    if subcategory:
+        filter_tags.append({
+            'type': 'subcategory',
+            'value': subcategory,
+            'display': subcategory
+        })
+
     cart_items_count = CartItem.objects.filter(user=request.user).count() if request.user.is_authenticated else 0
-    return render(request, 'app/giay_dep.html', {'products': products, 'cart_items_count': cart_items_count})
+    
+    context = {
+        'products': products,
+        'cart_items_count': cart_items_count,
+        'categories': categories,
+        'colors': colors,
+        'sizes': sizes,
+        'filter_tags': filter_tags,
+        'view_mode': view_mode,
+        'sort_by': sort_by,
+        'selected_categories': selected_categories,
+        'selected_colors': selected_colors,
+        'selected_sizes': selected_sizes,
+        'min_price': min_price,
+        'max_price': max_price,
+    }
+    
+    return render(request, 'app/all_items.html', context)
 
 def tui_vi(request):
+    subcategory = request.GET.get('subcategory', '')
     products = Product.objects.filter(category__name="Túi ví", is_active=True)
+    
+    if subcategory:
+        products = products.filter(name__icontains=subcategory)
+    
+    # Get filter parameters
+    selected_categories = request.GET.getlist('category', [])
+    min_price = request.GET.get('min_price', '')
+    max_price = request.GET.get('max_price', '3000000')
+    selected_colors = request.GET.getlist('color', [])
+    selected_sizes = request.GET.getlist('size', [])
+    sort_by = request.GET.get('sort', 'newest')
+    view_mode = request.GET.get('view', 'grid')
+
+    # Apply filters
+    if selected_categories:
+        products = products.filter(category_id__in=selected_categories)
+
+    if min_price:
+        try:
+            min_price_value = float(min_price)
+            products = products.filter(price__gte=min_price_value)
+        except ValueError:
+            pass
+
+    if max_price:
+        try:
+            max_price_value = float(max_price)
+            products = products.filter(price__lte=max_price_value)
+        except ValueError:
+            pass
+
+    if selected_colors:
+        products = products.filter(colors__name__in=selected_colors)
+
+    if selected_sizes:
+        products = products.filter(size__name__in=selected_sizes)
+
+    # Apply sorting
+    if sort_by == 'price-asc':
+        products = products.order_by('price')
+    elif sort_by == 'price-desc':
+        products = products.order_by('-price')
+    elif sort_by == 'rating':
+        products = products.order_by('-rating')
+    else:  # newest
+        products = products.order_by('-created_at')
+
+    # Pagination
+    paginator = Paginator(products, 12)
+    page = request.GET.get('page', 1)
+    try:
+        products = paginator.page(page)
+    except (PageNotAnInteger, EmptyPage):
+        products = paginator.page(1)
+
+    # Get all categories and colors
+    categories = Category.objects.all()
+    colors = Color.objects.all()
+    sizes = Size.objects.values_list('name', flat=True)
+
+    # Prepare filter tags
+    filter_tags = []
+    if subcategory:
+        filter_tags.append({
+            'type': 'subcategory',
+            'value': subcategory,
+            'display': subcategory
+        })
+
     cart_items_count = CartItem.objects.filter(user=request.user).count() if request.user.is_authenticated else 0
-    return render(request, 'app/tui_vi.html', {'products': products, 'cart_items_count': cart_items_count})
+    
+    context = {
+        'products': products,
+        'cart_items_count': cart_items_count,
+        'categories': categories,
+        'colors': colors,
+        'sizes': sizes,
+        'filter_tags': filter_tags,
+        'view_mode': view_mode,
+        'sort_by': sort_by,
+        'selected_categories': selected_categories,
+        'selected_colors': selected_colors,
+        'selected_sizes': selected_sizes,
+        'min_price': min_price,
+        'max_price': max_price,
+    }
+    
+    return render(request, 'app/all_items.html', context)
 
 def phu_kien(request):
+    subcategory = request.GET.get('subcategory', '')
     products = Product.objects.filter(category__name="Phụ kiện", is_active=True)
+    
+    if subcategory:
+        products = products.filter(name__icontains=subcategory)
+    
+    # Get filter parameters
+    selected_categories = request.GET.getlist('category', [])
+    min_price = request.GET.get('min_price', '')
+    max_price = request.GET.get('max_price', '3000000')
+    selected_colors = request.GET.getlist('color', [])
+    selected_sizes = request.GET.getlist('size', [])
+    sort_by = request.GET.get('sort', 'newest')
+    view_mode = request.GET.get('view', 'grid')
+
+    # Apply filters
+    if selected_categories:
+        products = products.filter(category_id__in=selected_categories)
+
+    if min_price:
+        try:
+            min_price_value = float(min_price)
+            products = products.filter(price__gte=min_price_value)
+        except ValueError:
+            pass
+
+    if max_price:
+        try:
+            max_price_value = float(max_price)
+            products = products.filter(price__lte=max_price_value)
+        except ValueError:
+            pass
+
+    if selected_colors:
+        products = products.filter(colors__name__in=selected_colors)
+
+    if selected_sizes:
+        products = products.filter(size__name__in=selected_sizes)
+
+    # Apply sorting
+    if sort_by == 'price-asc':
+        products = products.order_by('price')
+    elif sort_by == 'price-desc':
+        products = products.order_by('-price')
+    elif sort_by == 'rating':
+        products = products.order_by('-rating')
+    else:  # newest
+        products = products.order_by('-created_at')
+
+    # Pagination
+    paginator = Paginator(products, 12)
+    page = request.GET.get('page', 1)
+    try:
+        products = paginator.page(page)
+    except (PageNotAnInteger, EmptyPage):
+        products = paginator.page(1)
+
+    # Get all categories and colors
+    categories = Category.objects.all()
+    colors = Color.objects.all()
+    sizes = Size.objects.values_list('name', flat=True)
+
+    # Prepare filter tags
+    filter_tags = []
+    if subcategory:
+        filter_tags.append({
+            'type': 'subcategory',
+            'value': subcategory,
+            'display': subcategory
+        })
+
     cart_items_count = CartItem.objects.filter(user=request.user).count() if request.user.is_authenticated else 0
-    return render(request, 'app/phu_kien.html', {'products': products, 'cart_items_count': cart_items_count})
+    
+    context = {
+        'products': products,
+        'cart_items_count': cart_items_count,
+        'categories': categories,
+        'colors': colors,
+        'sizes': sizes,
+        'filter_tags': filter_tags,
+        'view_mode': view_mode,
+        'sort_by': sort_by,
+        'selected_categories': selected_categories,
+        'selected_colors': selected_colors,
+        'selected_sizes': selected_sizes,
+        'min_price': min_price,
+        'max_price': max_price,
+    }
+    
+    return render(request, 'app/all_items.html', context)
 
 def giam_gia(request):
-    products = Product.objects.filter(is_active=True).order_by('-price')[:10]
+    products = Product.objects.filter(is_sale=True, is_active=True)
+    
+    # Get filter parameters
+    selected_categories = request.GET.getlist('category', [])
+    min_price = request.GET.get('min_price', '')
+    max_price = request.GET.get('max_price', '3000000')
+    selected_colors = request.GET.getlist('color', [])
+    selected_sizes = request.GET.getlist('size', [])
+    sort_by = request.GET.get('sort', 'newest')
+    view_mode = request.GET.get('view', 'grid')
+
+    # Apply filters
+    if selected_categories:
+        products = products.filter(category_id__in=selected_categories)
+
+    if min_price:
+        try:
+            min_price_value = float(min_price)
+            products = products.filter(price__gte=min_price_value)
+        except ValueError:
+            pass
+
+    if max_price:
+        try:
+            max_price_value = float(max_price)
+            products = products.filter(price__lte=max_price_value)
+        except ValueError:
+            pass
+
+    if selected_colors:
+        products = products.filter(colors__name__in=selected_colors)
+
+    if selected_sizes:
+        products = products.filter(size__name__in=selected_sizes)
+
+    # Apply sorting
+    if sort_by == 'price-asc':
+        products = products.order_by('price')
+    elif sort_by == 'price-desc':
+        products = products.order_by('-price')
+    elif sort_by == 'rating':
+        products = products.order_by('-rating')
+    else:  # newest
+        products = products.order_by('-created_at')
+
+    # Pagination
+    paginator = Paginator(products, 12)
+    page = request.GET.get('page', 1)
+    try:
+        products = paginator.page(page)
+    except (PageNotAnInteger, EmptyPage):
+        products = paginator.page(1)
+
+    # Get all categories and colors
+    categories = Category.objects.all()
+    colors = Color.objects.all()
+    sizes = Size.objects.values_list('name', flat=True)
+
     cart_items_count = CartItem.objects.filter(user=request.user).count() if request.user.is_authenticated else 0
-    return render(request, 'app/giam_gia.html', {'products': products, 'cart_items_count': cart_items_count})
+    
+    context = {
+        'products': products,
+        'cart_items_count': cart_items_count,
+        'categories': categories,
+        'colors': colors,
+        'sizes': sizes,
+        'view_mode': view_mode,
+        'sort_by': sort_by,
+        'selected_categories': selected_categories,
+        'selected_colors': selected_colors,
+        'selected_sizes': selected_sizes,
+        'min_price': min_price,
+        'max_price': max_price,
+    }
+    
+    return render(request, 'app/all_items.html', context)
 
 def about(request):
     cart_items_count = CartItem.objects.filter(user=request.user).count() if request.user.is_authenticated else 0
