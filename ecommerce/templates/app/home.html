@@ -95,14 +95,14 @@
                             </div>
                             <!-- Quick actions -->
                            <div class="absolute bottom-0 left-0 right-0 flex justify-center gap-1 translate-y-full group-hover:translate-y-0 transition-transform duration-300 p-1 bg-white bg-opacity-90">
-                                <button class="w-[60px] bg-blue-500 text-white py-1 px-1 rounded text-xs hover:bg-blue-600 buy-now-btn"
+                            <button class="flex-1 bg-blue-500 text-white py-2 rounded-md text-sm hover:bg-blue-600 buy-now-btn" 
+                            data-product-slug="{{ product.slug }}">
+                                MUA NGAY
+                            </button>
+                            <button class="flex-1 bg-green-500 text-white py-2 rounded-md text-sm hover:bg-green-600 add-to-cart-btn" 
                                     data-product-slug="{{ product.slug }}">
-                                    Mua
-                                </button>
-                                <button class="flex-1 bg-green-500 text-white py-1 px-2 rounded text-sm hover:bg-green-600 add-to-cart-btn"
-                                    data-product-slug="{{ product.slug }}">
-                                    Thêm Giỏ
-                                </button>
+                                Thêm giỏ
+                            </button>
                             </div>
 
                         </div>

@@ -619,20 +619,142 @@ def order_success(request, order_number):
 
 def san_pham(request):
     query = request.GET.get('q', '')
+    selected_categories = request.GET.getlist('category', [])
+    min_price = request.GET.get('min_price', '')
+    max_price = request.GET.get('max_price', '3000000')  # Default max price
+    selected_colors = request.GET.getlist('color', [])
+    selected_sizes = request.GET.getlist('size', [])
+    sort_by = request.GET.get('sort', 'newest')
+    view_mode = request.GET.get('view', 'grid')
+
+    # Start with all products
     products = Product.objects.filter(is_active=True)
 
     if query:
         products = products.filter(name__icontains=query)
 
+    # Apply filters
+    if selected_categories:
+        products = products.filter(category_id__in=selected_categories)
+
+    # Apply price filter
+    if min_price:
+        try:
+            min_price_value = float(min_price)
+            products = products.filter(price__gte=min_price_value)
+        except ValueError:
+            pass
+
+    if max_price:
+        try:
+            max_price_value = float(max_price)
+            products = products.filter(price__lte=max_price_value)
+        except ValueError:
+            pass
+
+    if selected_colors:
+        products = products.filter(colors__name__in=selected_colors)
+
+    if selected_sizes:
+        products = products.filter(size__name__in=selected_sizes)
+
+    # Apply sorting
+    if sort_by == 'price-asc':
+        products = products.order_by('price')
+    elif sort_by == 'price-desc':
+        products = products.order_by('-price')
+    elif sort_by == 'rating':
+        products = products.order_by('-rating')
+    else:  # newest
+        products = products.order_by('-created_at')
+
+    # Pagination
+    paginator = Paginator(products, 12)  # 12 products per page
+    try:
+        page = int(request.GET.get('page', 1))
+    except (ValueError, TypeError):
+        page = 1
+    
+    try:
+        products = paginator.page(page)
+    except PageNotAnInteger:
+        products = paginator.page(1)
+    except EmptyPage:
+        products = paginator.page(paginator.num_pages)
+
+    # Get all categories and colors from database
+    categories = Category.objects.all()
+    colors = Color.objects.all()
+    sizes = Size.objects.values_list('name', flat=True)
+
+    # Prepare selected filter tags
+    filter_tags = []
+    
+    # Add search query tag if present
+    if query:
+        filter_tags.append({
+            'type': 'search',
+            'value': query,
+            'display': f'Tìm kiếm: {query}'
+        })
+    
+    # Add category tags
+    if selected_categories:
+        category_names = Category.objects.filter(id__in=selected_categories).values_list('name', flat=True)
+        for cat_name in category_names:
+            filter_tags.append({
+                'type': 'category',
+                'value': cat_name,
+                'display': cat_name
+            })
+    
+    # Add color tags
+    if selected_colors:
+        for color in selected_colors:
+            filter_tags.append({
+                'type': 'color',
+                'value': color,
+                'display': color
+            })
+
+    # Add size tags
+    if selected_sizes:
+        for size in selected_sizes:
+            filter_tags.append({
+                'type': 'size',
+                'value': size,
+                'display': size
+            })
+
+    # Add price range tag if filtered
+    if min_price or max_price != '3000000':
+        price_display = f"Giá: {int(float(min_price or 0)):,}đ - {int(float(max_price)):,}đ"
+        filter_tags.append({
+            'type': 'price',
+            'value': f"{min_price}-{max_price}",
+            'display': price_display
+        })
+
     cart_items_count = CartItem.objects.filter(user=request.user).count() if request.user.is_authenticated else 0
 
     context = {
         'products': products,
+        'categories': categories,
+        'selected_categories': selected_categories,
+        'min_price': min_price,
+        'max_price': max_price,
+        'selected_colors': selected_colors,
+        'selected_sizes': selected_sizes,
+        'sort_by': sort_by,
+        'view_mode': view_mode,
+        'colors': colors,
+        'sizes': sizes,
+        'filter_tags': filter_tags,
         'cart_items_count': cart_items_count,
         'query': query
     }
 
-    return render(request, 'app/all_items.html', context)  # ← render all_items.html
+    return render(request, 'app/all_items.html', context)
 
 def giay_dep(request):
     products = Product.objects.filter(category__name="Giày dép", is_active=True)
@@ -1087,7 +1209,7 @@ def all_items(request):
         products = products.order_by('-created_at')
 
     # Pagination
-    paginator = Paginator(products, 12)  # 12 products per page
+    paginator = Paginator(products, 20)  # 12 products per page
     try:
         page = int(request.GET.get('page', 1))
     except (ValueError, TypeError):
