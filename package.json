@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "Django project with Tailwind CSS",
   "scripts": {
-    "dev": "tailwindcss -i ./ecommerce/static/src/input.css -o ./ecommerce/static/css/main.css --watch",
-    "build": "mkdir -p ./ecommerce/static/css && ./node_modules/.bin/tailwindcss -i ./ecommerce/static/src/input.css -o ./ecommerce/static/css/main.css --minify",
-    "postinstall": "chmod +x ./node_modules/.bin/tailwindcss && npm run build"
+    "dev": "npx tailwindcss -i ./ecommerce/static/src/input.css -o ./ecommerce/static/css/main.css --watch",
+    "build": "mkdir -p ./ecommerce/static/css && npx tailwindcss -i ./ecommerce/static/src/input.css -o ./ecommerce/static/css/main.css --minify",
+    "postinstall": "npm run build"
   },
   "engines": {
     "node": "18.x",
